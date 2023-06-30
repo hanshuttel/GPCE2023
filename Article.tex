@@ -1,0 +1,955 @@
+\documentclass[sigplan,screen]{acmart}
+\input{preamble}
+%%
+%% This is file `sample-sigplan.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% samples.dtx  (with options: `sigplan')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from sample-sigplan.tex.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file samples.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+%%
+%%
+%% Commands for TeXCount
+%TC:macro \cite [option:text,text]
+%TC:macro \citep [option:text,text]
+%TC:macro \citet [option:text,text]
+%TC:envir table 0 1
+%TC:envir table* 0 1
+%TC:envir tabular [ignore] word
+%TC:envir displaymath 0 word
+%TC:envir math 0 word
+%TC:envir comment 0 0
+%%
+%%
+%% The first command in your LaTeX source must be the \documentclass
+%% command.
+%%
+%% For submission and review of your manuscript please change the
+%% command to \documentclass[manuscript, screen, review]{acmart}.
+%%
+%% When submitting camera ready or to TAPS, please change the command
+%% to \documentclass[sigconf]{acmart} or whichever template is required
+%% for your publication.
+%%
+%%
+
+
+%%
+%% \BibTeX command to typeset BibTeX logo in the docs
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    Bib\TeX}}}
+
+%% Rights management information.  This information is sent to you
+%% when you complete the rights form.  These commands have SAMPLE
+%% values in them; it is your responsibility as an author to replace
+%% the commands and values with those provided to you when you
+%% complete the rights form.
+\setcopyright{acmcopyright}
+\copyrightyear{2023}
+\acmYear{2023}
+\acmDOI{XXXXXXX.XXXXXXX}
+
+%% These commands are for a PROCEEDINGS abstract or paper.
+\acmConference[GPCE 2023]{Make sure to enter the correct
+  conference title from your rights confirmation emai}{July 07--07,
+  2023}{Woodstock, NY}
+%%
+%%  Uncomment \acmBooktitle if the title of the proceedings is different
+%%  from ``Proceedings of ...''!
+%%
+%%\acmBooktitle{Woodstock '18: ACM Symposium on Neural Gaze Detection,
+%%  June 03--05, 2018, Woodstock, NY}
+\acmPrice{15.00}
+\acmISBN{978-1-4503-XXXX-X/18/06}
+
+
+%%
+%% Submission ID.
+%% Use this when submitting an article to a sponsored event. You'll
+%% receive a unique submission ID from the organizers
+%% of the event, and this ID should be used as the parameter to this command.
+%%\acmSubmissionID{123-A56-BU3}
+
+%%
+%% For managing citations, it is recommended to use bibliography
+%% files in BibTeX format.
+%%
+%% You can then either use BibTeX with the ACM-Reference-Format style,
+%% or BibLaTeX with the acmnumeric or acmauthoryear sytles, that include
+%% support for advanced citation of software artefact from the
+%% biblatex-software package, also separately available on CTAN.
+%%
+%% Look at the sample-*-biblatex.tex files for templates showcasing
+%% the biblatex styles.
+%%
+
+%%
+%% The majority of ACM publications use numbered citations and
+%% references.  The command \citestyle{authoryear} switches to the
+%% "author year" style.
+%%
+%% If you are preparing content for an event
+%% sponsored by ACM SIGGRAPH, you must use the "author year" style of
+%% citations and references.
+%% Uncommenting
+%% the next command will enable that style.
+%%\citestyle{acmauthoryear}
+
+
+%%
+%% end of the preamble, start of the body of the document source.
+\begin{document}
+
+%%
+%% The "title" command has an optional parameter,
+%% allowing the author to define a "short title" to be used in page headers.
+\title{A generalised editor calculus (Short Paper)}
+
+%%
+%% The "author" command and its associated commands are used to define
+%% the authors and their affiliations.
+%% Of note is the shared affiliation of the first two authors, and the
+%% "authornote" and "authornotemark" commands
+%% used to denote shared contribution to the research.
+
+
+
+%%\orcid{1234-5678-9012}
+
+
+
+
+
+
+
+
+
+
+%\author{Andreas Tor Mortensen}
+%\email{atmo20@student.aau.dk}
+
+
+%\author{Benjamin Bennetzen}
+%\email{bbenne20@student.aau.dk}
+
+
+%\author{Nikolaj Rossander Kristensen}
+%\email{nrkr20@student.aau.dk}
+
+%\author{Peter Buus Steffensen}
+%%\authornotemark[1]
+%\email{psteff19@student.aau.dk
+%}
+
+%\affiliation{%
+%  \institution{Department of Computer Science at Aalborg University}
+%  \streetaddress{Selma Lagerlöfsvej 300}
+%  \city{Aalborg}
+%  \country{Denmark}
+%  \postcode{9220}
+%}
+
+%\author{Hans Huttel}
+%\email{hans@cs.aau.dk}
+%\affiliation{%
+%  \institution{Department of Computer Science at Aalborg University}
+%  \streetaddress{Selma Lagerlöfsvej 300}
+ % \city{Aalborg}
+ % \country{Denmark}
+ % \postcode{9220}
+%}
+
+
+
+%%
+%% By default, the full list of authors will be used in the page
+%% headers. Often, this list is too long, and will overlap
+%% other information printed in the page headers. This command allows
+%% the author to define a more concise list
+%% of authors' names for this purpose.
+\renewcommand{\shortauthors}{AAU Bachelor}
+
+%%
+%% The abstract is a short summary of the work to be presented in the
+%% article.
+\begin{abstract}
+In this paper, we present a generalization of a syntax-directed editor calculus, which can be used to instantiate a specialized syntax-directed editor for any language, given by some abstract syntax. The editor calculus guarantees the absence of syntactical errors while allowing incomplete programs. The generalized editor calculus is then encoded into a simply typed lambda calculus, extended with pairs, booleans, pattern matching and fixed points.
+\end{abstract}
+
+%%
+%% The code below is generated by the tool at http://dl.acm.org/ccs.cfm.
+%% Please copy and paste the code instead of the example below.
+%%
+\begin{CCSXML}
+<ccs2012>
+ <concept>
+  <concept_id>10010520.10010553.10010562</concept_id>
+  <concept_desc>Computer systems organization~Embedded systems</concept_desc>
+  <concept_significance>500</concept_significance>
+ </concept>
+ <concept>
+  <concept_id>10010520.10010575.10010755</concept_id>
+  <concept_desc>Computer systems organization~Redundancy</concept_desc>
+  <concept_significance>300</concept_significance>
+ </concept>
+ <concept>
+  <concept_id>10010520.10010553.10010554</concept_id>
+  <concept_desc>Computer systems organization~Robotics</concept_desc>
+  <concept_significance>100</concept_significance>
+ </concept>
+ <concept>
+  <concept_id>10003033.10003083.10003095</concept_id>
+  <concept_desc>Networks~Network reliability</concept_desc>
+  <concept_significance>100</concept_significance>
+ </concept>
+</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Computer systems organization~Embedded systems}
+\ccsdesc[300]{Computer systems organization~Redundancy}
+\ccsdesc{Computer systems organization~Robotics}
+\ccsdesc[100]{Networks~Network reliability}
+
+%%
+%% Keywords. The author(s) should pick words that accurately describe
+%% the work being presented. Separate the keywords with commas.
+\keywords{Syntax-directed editor, Generalisation, lambda calculus}
+%% A "teaser" image appears between the author and affiliation
+%% information and the body of the document, and typically spans the
+%% page.
+%\begin{teaserfigure}
+ % \includegraphics[width=\textwidth]{Images/windmill.jpg}
+ % \caption{Seattle Mariners at Spring Training, 2010.}
+%  \Description{Enjoying the baseball game from the third-base
+%  seats. Ichiro Suzuki preparing to bat.}
+%  \label{fig:teaser}
+%\end{teaserfigure}
+
+%\received{20 February 2007}
+%\received[revised]{12 March 2009}
+%\received[accepted]{5 June 2009}
+
+%%
+%% This command processes the author and affiliation and title
+%% information and builds the first part of the formatted document.
+\maketitle
+
+\section{Introduction}
+This paper is on the topic of syntax-directed editors. 
+Most current examples of syntax-directed editor calculi, such as the ones presented by \cite{hazelnut} and \cite{type_safe_structure_editor}, are typically tailored specifically towards editing abstract syntax trees from an applied $\lambda$-calculus. 
+This fact alone limits the usable scope of these calculi, since they would be rendered useless given any other form of abstract syntax. 
+
+Furthermore, these calculi do not account for binding mechanisms in abstract syntax. Many of the editor calculi possess the ability to interleave construction and evaluation of programs, however, a consequence of this is a complex type system.
+
+In this paper we propose a generalized editor calculus that can be used to create a syntax-directed editor calculus for any abstract syntax. 
+Our editor calculus is inspired by higher-order abstract syntax presented in \cite{hoas}, and it will take binding-mechanisms into account. We have encoded our generalized editor calculus into a simply-typed lambda calculus extended with pairs, booleans, pattern matching and fixed-points.
+
+%Copy paste fra her
+\section{Generalized Editor Calculus}\label{sec:general_editor}
+We will now present a generalization of the syntax-directed editor calculus by \cite{type_safe_structure_editor}. 
+This specific editor calculus was designed with the language of an applied $\lambda$-calculus in mind. 
+%Instead, by using the notion of abstract syntax as presented in \cite{sec:pre_abstract_syntax} we generalize the concepts of the editor calculus to account for any language given by some abstract syntax.
+
+\subsection{Syntax}
+
+\subsubsection{Abstract Syntax}
+Firstly, we introduce the general representation of some abstract syntax that will be the focus of the editor calculus. We assume the abstract syntax is given by a set of sorts $\SORT$, an arity-indexed family of operators $\OP$ and a sort-indexed family of variables $\VAR$, such as presented in \cite{harper_foundations}. For the full definitions we refer to the full version of the paper.
+
+The notion of cursors and holes is central to the idea of an editor calculus. Whereas the calculus in \cite{type_safe_structure_editor} only has one cursor and hole term, in the general case we need a cursor and hole operator for every sort in the abstract syntax.
+With the set of sorts $\SORT$, the extended family of operators $\OP$ and family of variables $\VAR$ we can then define the sort-indexed family of abstract binding trees (refered to as "abt") $\ABT{}$ as the smallest family that satisfies the conditions of $\ABT{}$'s in \cite{harper_foundations}.
+
+\begin{example}\label{ex:abstract_syntax}
+    %To illustrate how the generalized editor calculus could be instantiated for some language, we will specialize an editor calculus as we proceed through this section for the abstract syntax shown in \cref{fig:example_abstract_syntax}.
+    To illustrate how the generalized editor calculus could be instantiated for some language, we will through our examples specialize an editor calculus. The abstract syntax for our specialization language is shown in \cref{fig:example_abstract_syntax}.
+    \federeboks{R C L L L}{
+        \text{Sort} && \text{Term} & \text{Operator} & \text{Arity} \\
+        s & ::= & \text{let $x = e$ in $s$} & \text{let} & (e, e.s)s \\
+        & | & e & \text{exp} & (e)s \\
+        e & ::= & e_1 + e_2 & \text{plus} & (e,e)e \\
+        & | & n & \text{num}[n] & ()e \\
+        & | & x & \text{var}[x] & ()e
+    }{\caption{Abstract syntax of arithmetic expressions and local declarations}\label{fig:example_abstract_syntax}}
+    The syntax in \cref{fig:example_abstract_syntax} describes a very simple language of statements and expressions. For example, using the abstract syntax we could construct the statement
+    \begin{equation*}
+        \text{let $x=5$ in let $y=10$ in $x+y$}
+    \end{equation*}
+    which, using operators, would be represented as the abt
+    \begin{equation*}
+        \text{let}(5;x.\text{let}(10;y.\text{exp}(\text{plus}(x;y))))
+    \end{equation*} 
+    
+    Given the abstract syntax in \cref{fig:example_abstract_syntax} we can extend it with holes and cursors. This gives us the new operators shown in \cref{fig:example_holes_and_cursors}.
+    \federeboks{R C L L L}{
+        \text{Sort} && \text{Term} & \text{Operator} & \text{Arity} \\
+        s & ::= & [s] & \text{cursor}_s & (s)s \\
+        & | & \hole{s} & \text{hole}_s & ()s \\
+        e & ::= & [e] & \text{cursor}_e & (e)e \\
+        & | & \hole{e} & \text{hole}_e & ()e
+    }{\caption{Introduction of cursors and holes to the abstract syntax in \cref{fig:example_abstract_syntax}}\label{fig:example_holes_and_cursors}}
+    With this extension we can now represent statements with holes and cursors as abt's. For example the statement
+    \begin{equation*}
+        \text{let $x=[5]$ in $x+\hole{e}$}
+    \end{equation*}
+    would be represented as the abt
+    \begin{equation*}
+        \text{let}(\text{cursor}_e(5); x.\text{exp}(\text{plus}(x;\text{hole}_e)))    
+    \end{equation*}
+\end{example}
+
+\subsubsection{Editor Calculus}
+The abstract syntax of the generalized editor calculus is shown in \cref{fig:editor_calculus_syntax}. It closely resembles that of the calculus presented by \cite{type_safe_structure_editor}.
+\federeboks{R C L}{
+    E & ::= & \pi.E \ | \ \phi => E_1|E_2 \ | \ E_1 \ggg E_2 \ | \ \text{rec} \ x.E \ | \ x \ | \ \text{nil} \\
+    \pi & ::= & \text{child} \ n \ | \ \text{parent} \ | \ \{o\} \\
+    \phi & ::= & \neg\phi \ | \ \phi_1 \wedge \phi_2 \ | \ \phi_1 \vee \phi_2 \ | \ @o \ | \ \Diamond o \ | \ \square o
+}{\caption{Abstract syntax of general editor calculus}\label{fig:editor_calculus_syntax}}
+Editor expressions $E \in Edt$, where $Edt$ is the sort of editor expressions, describes the behaviour of the editor calculus. The semantics behind the different constructs are defined in section \cref{sec:Semantics}.
+
+Evaluation of abt's, which \cite{type_safe_structure_editor} introduces through a $eval$ construct, is not included in our generalized version. This omission is due to evaluation being entirely dependent on the dynamics of the language in focus, and not the static and structural properties the abstract syntax describes. To define the concept of evaluation in a generalized manner, it would be necessary to devise a formal and concise approach for specifying the semantics of operators.
+
+\begin{example}\label{ex:editor_calculus}
+    Expanding upon \cref{ex:abstract_syntax}, we can specialize the abstract syntax of the general editor calculus presented in \cref{fig:editor_calculus_syntax} for our simple language by defining the set of operators $o$ ranges over. In this case we have that
+    \begin{equation*}
+        o \in \{ \text{let}, \text{exp}, \text{hole}_s, \text{plus}, \text{num}[n], \text{var}[x], \text{hole}_e \}
+    \end{equation*}
+    allowing us to write editor expressions such as $(@\text{hole}_e => \{\text{plus}\}.\text{nil}|\text{nil})$, which would substitute the current tree encapsulated by the cursor with the $plus$ operator, if the cursor is at the operator $\text{hole}_e$.
+\end{example}
+
+\subsubsection{Cursor Context}
+In editor expressions, we frequently refer to performing actions on, or with, the abt that is currently encapsulated by the cursor. To support this notion we introduce cursor contexts $C$, inspired by the zipper data structure by \cite{huet_zipper}, as a way to locate the cursor in an abt. Central to this idea is the cursor context $\ctxhole$, or context hole, which specifies the subtree within which the cursor must reside, either as the root, or one of the first children.  For the full definition of cursor contexts, we refer to the full version of the paper, or to \cite{type_safe_structure_editor}, as they have a very similar construct.
+
+%To ensure that the cursor can only reside somewhere within the subtree specified by the context hole, we need to introduce some notion of cursorless abt's, written as $\hat{s}$. Using the abstract syntax, given by $\SORT$, $\OP$ and $\VAR$, we define a new corresponding abstract syntax which can only build abt's without cursors.
+
+%The abstract syntax of cursor contexts are defined according to \cref{def:cursor_contexts}. Using cursor contexts we can interpret any sort of abt $a \in \ABT{}$ as the cursor context $C[a']$, where the abt $a'$ is substituted for the context hole $\ctxhole$. Due to \cref{def:cursor_contexts} this also means that the cursor can only reside within $a'$, since it cannot be anywhere in $C$.
+
+%\begin{definition}[Cursor Contexts]\normalfont
+%    \label{def:cursor_contexts}
+ %   The abstract syntax of cursor contexts is defined as an extension of the syntax for cursorless abt's. It is given by
+%    \begin{enumerate}
+%        \item The sorts $\SORT^C = \SORTc \cup \{ C \}$
+%        \item The family of operators $\OP^C = \OPc$ extended with the $\ctxhole$ operator of arity $()C$.
+ %       \item Furthermore, for every operator $\hat{o} \in \OPc$ of arity $(\Vec{\hat{s}_1}.\hat{s}_1, \dots, \Vec{\hat{s}_n}.\hat{s}_n)\hat{s}$ and for every $1 \leq i \leq n$ we also add the operator $o^C_i$ of arity $(\Vec{\hat{s}_1}.\hat{s}_1, \dots, \Vec{\hat{s}_i}.C, \dots, \Vec{\hat{s}_n}.\hat{s}_n)C$ to $\OP^C$. These represents that $\ctxhole$ must be somewhere in subtree $i$ of operator $\hat{o}$.
+%        \item The family of variables $\VAR^C = \VARc$
+%    \end{enumerate}
+%\end{definition}
+
+%\begin{example}\label{ex:cursor_contexts}
+%    Continuing from \cref{ex:editor_calculus}, we will now extend the editor calculus for our simple language with cursorless abt's and cursor contexts. 
+    
+ %   Firstly, we define the abstract syntax of abt's without cursors, the result of which is shown in \cref{fig:example_cursorless_trees}. For brevity the syntax is presented as formation rules, since translating these into the notion of operators, while trivial, is not a very concise way of presenting the abstract syntax.
+ %   \federeboks{R C l}{
+  %      \hat{s} & ::= & let $x = \hat{e}$ in $\hat{s}$ | %$\hat{e}$ | $\hole{s}$ \\
+  %      \hat{e} & ::= & $\hat{e}_1 + \hat{e}_2$ | n | x | $\hole{e}$
+ %   }{\caption{Abstract syntax of abt's without cursors}\label{fig:example_cursorless_trees}}
+ %   Secondly, using the syntax of cursorless abt's we can define the abstract syntax of cursor contexts according to \cref{def:cursor_contexts}. This is shown in \cref{fig:example_cursor_contexts}.
+ %   \federeboks{R C l}{
+ %       C & ::= & let $x = C$ in $\hat{s}$ | let $x = \hat{e}$ in $C$ \\
+  %      & | & $C + \hat{e}_2$ | $\hat{e}_1 + C$ | $\ctxhole$
+ %   }{\caption{Abstract syntax of cursor contexts}\label{fig:example_cursor_contexts}}
+%\end{example}
+
+Although a cursor context accurately specifies the subtree where the cursor must reside, it does not inherently guarantee the presence of only one cursor within that subtree. Therefore, it becomes necessary to introduce the concept of well-formed abt's. We will do this informally, where a well-formed abt is simply an abt containing exactly one cursor. This is guarantied when an abt can be interpreted as $C[\dot{a}]$, meaning the context C, where $\ctxhole$ is substituted with a tree $\dot{a}$, where the cursor-operator is either the root $\dot{a}$, or one of the children of the root.
+
+%\begin{definition}[Well-formed trees]\normalfont
+%    \label{def:well_formed_trees}
+%    Firstly, we define an abstract syntax that describes abt's with exactly one cursor either as the root or as an argument of the root. The syntax is given by
+ %   \begin{enumerate}
+ %       \item The sorts $\SORTcc = \SORTc \cup \{ \dot{s} \}_{s \in \SORT}$.
+ %       \item The family of operators $\OPcc = \OPc$ extended with an operator of arity $(\hat{s})\dot{s}$ for every $\hat{s} \in \SORTc$. These represent that the cursor encapsulates the root of a cursorless abt of sort $\hat{s}$.
+   %     \item Furthermore, for every operator $\hat{o} \in \OPc$ of arity $(\Vec{\hat{s}_1}.\hat{s}_1, \dots, \Vec{\hat{s}_n}.\hat{s}_n)\hat{s}$ and for every $1 \leq i \leq n$ we also add the operator $\dot{o}_i$ of arity $(\Vec{\hat{s}_1}.\hat{s}_1, \dots, \Vec{\hat{s}_i}.\hat{s}_i, \dots, \Vec{\hat{s}_n}.\hat{s}_n)\dot{s}$ to $\OPcc$. These represent that the cursor encapsulates the cursorless subtree $i$ of operator $\hat{o}$.
+%        \item The family of variables $\VARcc = \VARc$.
+ %   \end{enumerate}
+%    Given this, a well-formed abt $a \in \ABT{}$ is any abt that can be interpreted as $C[\dot{a}]$, since $C$ cannot contain any cursors and $\dot{a}$ contains exactly one.
+%\end{definition}
+
+\begin{example}\label{ex:well_formed_trees}
+   We will now show the extension of \cref{fig:example_abstract_syntax}, where cursors are included, as shown in \cref{fig:example_well_formed_trees}. We note that $\hat{s}$ and $\hat{e}$ are trees without cursors.
+    \federeboks{R C l}{
+        \dot{s} & ::= & let $x = [\hat{e}]$ in $\hat{s}$ | let $x = \hat{e}$ in $[\hat{s}]$ | $[\hat{e}]$ | $[\hat{s}]$ \\
+        \dot{e} & ::= & $[\hat{e}_1] + \hat{e}_2$ | $\hat{e}_1 + [\hat{e}_2]$ | $[\hat{e}]$
+    }{\caption{Abstract syntax of abt's with exactly one cursor}\label{fig:example_well_formed_trees}}
+    Given the syntax in \cref{fig:example_well_formed_trees} and the previously introduced cursor context, we can now determine the well-formedness of any abt in our language. For example the statement
+    \begin{equation*}
+        \text{let $x=[\hole{e}]$ in $x+5$}
+    \end{equation*}
+    is well-formed since it can be written as $C[\dot{e}]$ where
+    \begin{align*}
+        C &= \text{let $x=\ctxhole$ in $x+5$} \\
+        \dot{e}&= [\hole{e}]
+    \end{align*}
+    It should be noted that there often are two valid interpretations of a tree $a$ as $C[\dot{a}]$. In this example, the other valid interpretation would be:
+    \begin{align*}
+        C' &= \ctxhole \\
+        \dot{e}' &= \text{let $x=[\hole{e}]$ in $x+5$}
+    \end{align*}
+\end{example}
+
+\subsection{Semantics}
+In this section we present the transition systems and the general forms of transition rules defining these systems, based on the generalized syntax of the editor calculus previously presented. 
+
+\subsubsection{Editor Expressions} \label{sec:Semantics}
+The labelled transition system for editor expressions is defined as $(Edt \times \ABT{}, Apc \cup \{\epsilon\}, \Rightarrow)$. Transitions are of the form $\lr{E, a} \ltrans{\alpha} \lr{E', a'}$ where the editor expression $E \in Edt$ is closed and the abt $a \in \ABT{}$ is well-formed. The labels of the transitions, $\alpha$, are the atomic prefix commands $Apc$ and the silent transition $\epsilon$. The transition relation $\Rightarrow$ is defined by the rules shown in \cref{fig:editor_expression_rules}. These facilitate ways of composing editor expressions together with conditions, sequential composition and recursion. The means of traversing and modifying an abt are provided by the prefixed expression $\pi.E$, which evaluates $\pi$ before continuing with $E$. The conditional expression $\phi => E_1|E_2$ reduces to $E_1$ if $\phi$ is satisfied and $E_2$ otherwise. The sequential expression $E_1 \ggg E_2$ evaluates $E_2$ only once $E_1$ has been reduced to $nil$. The recursive expression $rec \ x.E$ binds the recursion variable $x$ in $E$, which can then be used to recursively iterate an expression.
+
+Unlike the editor calculus by \cite{type_safe_structure_editor}, we do not utilize any form of structural congruence on editor expressions to define the semantics of trivial sequential composition or recursion. Instead we simply define these notions with their own transition rule (Seq-Trivial) and (Recursion)
+\federeboks{c}{
+    \infeshort{Cond-1}
+            {a |= \phi}
+            {\lr{\phi => E_1 | E_2, C[a]} \ltrans{\epsilon} \lr{E_1, C[a]}}
+    \\\\
+    \infeshort{Cond-2}
+        {a \nvDash \phi}
+        {\lr{\phi => E_1 | E_2, C[a]} \ltrans{\epsilon} \lr{E_2, C[a]}}
+    \\\\
+    \infeshort{Seq}
+        {\lr{E_1, a} \ltrans{\alpha} \lr{E_1',a'}}
+        {\lr{E_1 \ggg E_2, a} \ltrans{\alpha} \lr{E_1' \ggg E_2,a'}}
+    \\\\
+    \infeshort{Seq-Trivial}
+        {}
+        {\lr{\text{nil} \ggg E_2, a} \ltrans{\epsilon} \lr{E_2,a}}    
+    \\\\
+    \infeshort{Recursion}
+        {}
+        {\lr{\text{rec } x.E,a} \ltrans{\epsilon} \lr{E[x:=rec \ x.E], a}}
+    \\\\
+    \infeshort{Context}
+        {a \ltrans{\pi} a'}
+        {\lr{\pi.E, C[a]} \ltrans{\pi} \lr{E, C[a']}}
+}{\caption{Reduction rules for editor expressions}\label{fig:editor_expression_rules}}
+.
+
+\subsubsection{Substitution and cursor movement}
+The labelled transition system for substitutions and cursor movement is defined as $(\ABT{}, Apc, \Rightarrow)$. This system describes the semantics of modifying the well-formed abt $a$ encapsulated by the cursor, by either substituting it with an operator or moving the cursor up or down the tree. Transitions are therefore of the form $a \ltrans{\pi} a'$, where $a, a' \in \ABT{}$ and $\pi \in Apc$.
+
+For substitution we define the transition rule for every label $\{o\} \in Apc$, which substitutes the abt currently encapuslated by the cursor with $o$. The general case of this rule is shown in \cref{fig:substitution_rules}. The side-condition ensures that we can only substitute operators of sort $s$ with abt's of sort $s$.
+\federeboks{c}{
+    \infeshort{Ins}
+        {}
+        {[\hat{a}]  \ltrans{\{o\}} [o(\Vec{x_1}.\hole{{s_1}}; \dots ; \Vec{x_n}.\hole{{s_n}})]}
+        $\begin{array}{l}
+         \hat{a}, o \in \ABT{}_s % , \\ \text{ where $s$ is the sort of $o$}
+        \end{array}$
+}{\caption{General form of reduction rule for substitution}\label{fig:substitution_rules}}
+
+For cursor movement we define two transition rules "child  $i$" and "parent" for every operator $o$ of arity $(\Vec{s_1}.s_1, \dots,$ $ \Vec{s_n}.s_n)s$ and for every $1 \leq i \leq n$. These rules, shown in \cref{fig:cursor_movement_rules}, facilitate cursor movement from the parent operator to child $i$ and from child $i$ back to the parent operator, respectively.
+\federeboks{c}{
+    \infeshort{Child-i}
+        {}
+        {[\hat{o}(\Vec{x_1}.\hat{a}_1; \dots; \Vec{x_n}.\hat{a}_n)] \ltrans{\text{child} \ i}} \\ 
+        \quad \quad \quad \quad \quad $o(\Vec{x_1}.\hat{a}_1; \dots; \Vec{x_i}.[a_i]; \dots; \Vec{x_n}.\hat{a}_n)$
+    \\\\
+    \infeshort{Parent}
+        {}
+        {o(\Vec{x_1}.\hat{a}_1; \dots; \Vec{x_i}.[\hat{a}_i]; \dots; \Vec{x_n}.\hat{a}_n) \ltrans{\text{parent}}} \\
+        \quad \quad \quad \quad \quad $[\hat{o}(\Vec{x_1}.\hat{a}_1; \dots; \Vec{x_n}.\hat{a}_n)]$
+}{\caption{General form of reduction rules for cursor movement}\label{fig:cursor_movement_rules}}
+
+\begin{example}\label{ex:substitution_rules}
+    Continuing from \cref{ex:well_formed_trees}, we now define the semantics of the editor calculus for our simple language. We do not show the transition rules for editor expressions, since these are equivalent to the ones presented in \cref{fig:editor_expression_rules}. 
+
+    The transition system for cursor movement and substitution is defined with respect to the operators $o$ in our language. Based on the general form of substitution rules shown in \cref{fig:substitution_rules}, we define a specialized rule for substituting the tree encapsulated by the cursor for every operator $o$. A selection of these are shown in \cref{fig:example_substitution_rules}.
+    \federeboks{c}{
+        \infelong{let}
+            {}
+            {[\hat{a}]  \ltrans{\{\text{let}\}} [\text{let}(\hole{e};x.\hole{s})]}
+            $\begin{array}{c}
+             \hat{a} \in \ABT{}_s
+            \end{array}$
+        \\\\
+        \infelong{plus}
+            {}
+            {[\hat{a}]  \ltrans{\{\text{plus}\}} [\text{plus}(\hole{e};\hole{e})]}
+            $\begin{array}{c}
+             \hat{a} \in \ABT{}_e 
+            \end{array}$
+        \\\\
+        \infelong{var}
+            {}
+            {[\hat{a}]  \ltrans{\{\text{var} \ x\}} [x]}
+            $\begin{array}{c}
+             \hat{a} \in \ABT{}_e
+            \end{array}$
+    }{\caption{Selected reduction rules for substitution}\label{fig:example_substitution_rules}}
+    Notice that in every rule we ensure that the substitution can only be performed if the abt $\hat{a}$ is of the same sort as the operator. For example, given the configuration $\lr{\{let\}.nil, \text{let $x = [\hole{e}]$ in $x+x$}}$ we cannot substitute in a statement, as shown below:
+    \begin{center}
+    \begin{tabular}{c}
+        \inference[(Context)]
+            {\inference[(let)]
+                {}
+                {[\hole{e}]  \ltransn{\{\text{let}\}}}
+                $\begin{array}{c}
+                    \hole{e} \notin \ABT{}_s
+                \end{array}$
+            }
+            {\lr{\{\text{let}\}.\text{nil}, \text{let $x = [\hole{e}]$ in $x+x$}} \ltransn{\{\text{let}\}}}
+    \end{tabular}
+    \end{center}
+        
+    Similarly, using the general form of cursor movement transition rules in \cref{fig:cursor_movement_rules}, we define specialized rules for every argument $i$ of every operator $o$. In \cref{fig:example_cursor_movement_rules} we show the parent and child rules for the let operator specifically. The transition rules for the remaining operators would be defined analogous to these.
+    \federeboks{c}{
+        \infelong{letc-1}
+            {}
+            {[\text{let}(a_1; x.a_2)] \ltrans{\text{child} \ 1} \text{let}([a_1]; x.a_2)}
+        \\\\
+        \infelong{letc-2}
+            {}
+            {[\text{let}(a_1; x.a_2)] \ltrans{\text{child} \ 2} \text{let}(a_1; x.[a_2])}
+        \\\\
+        \infelong{letp-1}
+            {}
+            {\text{let}([a_1]; x.a_2) \ltrans{\text{parent}} [\text{let}(a_1; x.a_2)]}
+        \\\\
+        \infelong{letp-2}
+            {}
+            {\text{let}(a_1; x.[a_2]) \ltrans{\text{parent}} [\text{let}(a_1; x.a_2)]}
+    }{\caption{Reduction rules for cursor movement on the $let$ operator}\label{fig:example_cursor_movement_rules}}
+\end{example}
+
+\subsubsection{Conditions}
+Finally, we define the satisfaction relation for conditions $\phi$ in our editor calculus. The propositional connectives are defined as expected in \cref{fig:satisfaction_relation_connectives}.
+\federeboks{c}{
+        \infeshort{Negation}
+        {[\hat{a}] \nvDash \phi}
+        {[\hat{a}] |= \neg \phi}
+    \\\\
+    \infeshort{Conjunction}
+        {[\hat{a}] |= \phi_1 \quad [\hat{a}] |= \phi_2}
+        {[\hat{a}] |= \phi_1 \wedge \phi_2}
+    \\\\
+    \infeshort{Disjunction-1}
+        {[\hat{a}] |= \phi_1}
+        {[\hat{a}] |= \phi_1 \vee \phi_2}
+    \\\\
+    \infeshort{Disjunction-2}
+        {[\hat{a}] |= \phi_2}
+        {[\hat{a}] |= \phi_1 \vee \phi_2}
+}{\caption{Satisfaction relation for propositional connectives}\label{fig:satisfaction_relation_connectives}}
+
+The general form of the satisfaction rules for the modalities $@o$, $\Diamond o$ and $\square o$ are defined in \cref{fig:satisfaction_relation_modal}. 
+\federeboks{c}{
+    \infeshort{At-op}
+        {}
+        {[o(\Vec{x_1}.\hat{a}_1; \dots; \Vec{x_n}.\hat{a}_n)] |= @o }  
+    \\\\
+    \infeshort{Necessity}
+        {[\hat{a}_1] |= \Diamond o \ \dots \ [\hat{a}_n] |= \Diamond o}
+        {[o(\Vec{x_1}.\hat{a}_1; \dots; \Vec{x_n}.\hat{a}_n)] |=\square o}
+    
+    \\\\
+    \infeshort{Possibly-i}
+        {[\hat{a}_i] |= \Diamond o}
+        {[o(\Vec{x_1}.\hat{a}_1; \dots; \Vec{x_i}.\hat{a}_i; \dots; \Vec{x_n}.\hat{a}_n)] |= \Diamond o}
+    \\\\
+    \infeshort{Possibly-trivial}
+        {[\hat{a}] |= @o}
+        {[\hat{a}] |= \Diamond o}
+}{\caption{Satisfaction relation for modal operators}\label{fig:satisfaction_relation_modal}}
+The modal operator $@o$ is satisfied when the root of the abt encapsulated by the cursor is the operator $o$. Therefore we define the rule (At-op) for every operator $o$.
+
+The modal operator $\Diamond o$ is satisfied when the operator $o$ is anywhere within the abt encapsulated by the cursor. For the trivial case, when the root of the tree encapsulated by the cursor is $o$, we only define the one rule (Possibly-trivial). For the non-trivial case, where $o$ is in one of the subtrees $\hat{a}_i$, we define a rule (Possibly-i) for every argument of every operator $o$.
+
+The modal operator $\square o$ is satisfied when $o$ is somewhere in every subtree of the abt encapsulated by the cursor. To describe this, we define the rule (Necessity) for every operator $o$.
+
+\begin{example}\label{ex:modal_logic}
+    We finalize our specialized editor calculus from \cref{ex:substitution_rules}, by defining the satisfaction relation. The propositional connectives are defined as previously shown in \cref{fig:satisfaction_relation_connectives}. In \cref{fig:example_satisfaction_relation} we have shown the satisfaction rules for all modalities for the $plus$ operator. Rules for the remaining operators $o$ are defined accordingly.
+    \federeboks{c}{
+        \infeshort{At-plus}
+            {}
+            {[\text{plus}(\hat{a}_1;\hat{a}_2)]|= @\text{plus} }  
+        \\\\
+        \infeshort{Pos1-plus}
+            {[\hat{a}_1] |= \Diamond o}
+            {[\text{plus}(\hat{a}_1; \hat{a}_2)] |= \Diamond o}
+        \\\\
+        \infeshort{Nec-plus}
+            {[\hat{a}_1] |= \Diamond o \quad [\hat{a}_2] |= \Diamond o}
+            {[\text{plus}(\hat{a}_1;\hat{a}_2)] |=\square o}
+        \\\\
+        \infeshort{Pos2-plus}
+            {[\hat{a}_2] |= \Diamond o}
+            {[\text{plus}(\hat{a}_1; \hat{a}_2)] |= \Diamond o}
+    }{\caption{Satisfaction relation for modal operators on $plus$}\label{fig:example_satisfaction_relation}}
+\end{example}
+
+\section{Encoding the generalized editor calculus in an extended lambda calculus} \label{sec:encoding}
+In this section we attempt to soundly encode the generalized editor calculus using the simply typed $\lambda$-calculus (\stlc) as the base calculus. The calculus will be extended with various constructs such as pattern matching, pairs and the recursive \textit{fix} operator. To encode the abstract binding trees, we will only need the simply typed lambda calculus. To encode the contexts, we introduce pairs. To encode atomic prefix commands we further extend the calculus with pattern matching ($\lambda_{->,p}$). Lastly to encode modal logic and editor expressions we extend the calculus with a fixed point operator ($\lambda_{->,p,fix}$). 
+
+%A concrete overview of the calculus and the constructs necessary to encode every central concept of the editor calculus can be seen in \cref{tab:encoding_requirements}.
+
+%\begin{table}[H]
+%    \centering
+%    \begin{tabular}{| l | l |}
+%        \hline
+%        Editor calculus & Encoding\\
+%        \hline
+%        \ Abstract Binding Trees & \ Simply typed lambda calculus, \stlc \\
+%        \hline
+%        \ Atomic Prefix Commands & \ \stlc with pattern matching, $\lambda_{->,p}$\\
+%        \hline
+%        \ Modal Logic & \ \stlc with pattern matching and recursion, $\lambda_{->,p,fix}$ \\
+%        \hline
+%        \ Editor Expressions & \ \stlc with pattern matching and recursion, $\lambda_{->,p,fix}$ \\
+%        \hline 
+%    \end{tabular}
+%    \vspace{1mm}
+%    \caption{Calculus requirements to encode the generalized editor calculus}
+%    \label{tab:encoding_requirements}
+%\end{table}
+
+\subsection{Motivation}
+The motivation behind encoding the generalized editor calculus in $\lambda_{->,p,fix}$ (or subsets thereof) is most importantly the type system it provides. If our encoding is sound, then any instance of the editor calculus will have a sound type system, regardless of the abstract syntax. This follows from the fact that the type system of $\lambda_{->,p,fix}$ is sound. Our editor calculus having a sound type system means that it will reject incorrect editor expressions. 
+
+Secondly a $\lambda_{->,p,fix}$ encoding provides a clear strategy for implementing any instantiation of the generalized editor calculus in a functional programming language.
+
+\subsection{Abstract Binding Trees}
+To encode abstract binding trees we only need to use the simply typed lambda-calculus. We extend the lambda-calculus with term constants $o$ for every $o \in \OP$ excluding cursors, and the base types $s$ for every $s \in \SORT$. 
+Typing rules for operators can be seen on \cref{fig:abt_typing_rules}, where we can infer the type of an operator in the lambda-calculus by its arity. 
+\federeboks{C}{
+    \infeshort{T-Operator}
+        {o \in \OP \text{ and has arity } (\Vec{s_1}.s_1, \dots, \Vec{s_n}.s_n)s}
+        {\Gamma |- o : (\Vec{s_1} -> s_1) -> \dots (\Vec{s_n} -> s_n) -> s}
+}{
+    \caption{Typing rules for operators.}
+    \label{fig:abt_typing_rules}
+}
+
+With the operators added as term constants and sorts added as base types, encoding abts is straightforward as we just have to curry the operator $o$, encode the children $a_1, \dots, a_n$ and add typings. This can be seen on \cref{fig:enc_abt}.
+
+\federeboks{C}{
+    \encode{o(\Vec{x_1}.a_1, \dots , \Vec{x_n}.a_n)} = o \ (\lambda \Vec{x_1} : \Vec{s_1}.\encode{a_1}) \dots (\lambda \Vec{x_n} : \Vec{s_n}.\encode{a_n})
+}{
+    \caption{Encoding of abstract binding trees.}
+    \label{fig:enc_abt}
+}
+
+\begin{example}\label{ex:enc_abt_example}
+    Continuing from \cref{ex:modal_logic} we will now encode the operators in our small language. Following our singular rule for encoding abt's we get the resulting encoding seen on \cref{fig:enc_abt_example}, and the type for each operator on \cref{fig:abt_example_type}.
+    
+    \federeboks{C C}{
+        \encode{\text{plus}(a_1; a_2)} = \text{plus} \encode{a_1} \encode{a_2} 
+        &
+        \encode{\text{num}[n]} = \text{num}[n]
+        \\\\
+        \encode{\text{var}[x]} = \text{var}[x]
+        &
+        \encode{\text{hole}_e} = \text{hole}_e
+        \\\\
+        \encode{\text{exp}(a_1)} = \text{exp} \encode{a_1}
+        &
+        \encode{\text{hole}_s} = \text{hole}_s
+        \\\\
+        \multicolumn{2}{C}{
+            \encode{\text{let}(a_1; x.a_2)} = \text{let} \ (\encode{a_1}) (\lambda x : e. \encode{a_2})
+        }
+    }{
+        \caption{Encoding of operators.}
+        \label{fig:enc_abt_example}
+    }
+    
+    \federeboks{C C}{
+        \text{plus} : e \to e \to e
+        &
+        \text{num}[n] : e
+        \\\\
+        \text{var}[x] : e
+        &
+        \text{hole}_e : e
+        \\\\
+        \text{exp} : e \to s
+        &
+        \text{hole}_s : s
+        \\\\
+        \multicolumn{2}{C}{
+            \text{let} : e \to (e \to s) \to s
+        }
+    }{
+        \caption{Types for the encoded operators.}
+        \label{fig:abt_example_type}
+    }
+    
+\end{example}
+
+for example, if we were to encode the statement:
+\begin{equation*}
+        \text{let $x=[\hole{e}]$ in $x+5$}
+    \end{equation*}
+    it could be encoded as:
+    \begin{align*} 
+        \text{let} \ (\text{cursor}_e(\text{hole}_e)) \ (\lambda x . \text{plus} \ \text{var}[x] \ \text{num}[5])
+  \end{align*}
+
+
+
+
+\subsection{Cursor Contexts}\label{sec:enc_cursor_contexts}
+
+To represent abts with cursor contexts we introduce the pair construct similarly to \cite{types_programming_languages}.
+%In \cref{fig:abt_cursor_syntactic_forms} we introduce the new syntactic forms which include the pair construct, first projection, second projection and the product type. 
+%\federeboks{R C L l}{
+%    \multicolumn{4}{c}{Terms}
+%    \\
+%    M & ::= &(M_1,M_2) & (pair) \\
+%      & |   & M.1      & (first projection) \\
+%      & |   & M.2      & (second projection)
+%    \\\\
+%    \multicolumn{4}{c}{Types}
+%    \\
+%    \tau & ::= & \tau_1 \times \tau_2 & (product type)
+%}{\caption{Abstract syntax for representing cursor contexts as pairs.}\label{fig:abt_cursor_syntactic_forms}}
+
+
+In \cref{fig:enc_abt_cursor} the encoding for cursor contexts can be seen. We can encode a cursor context $C[a]$ as a pair of two encoded trees the first being a regular abt and the second being an abt with a context hole $\ctxhole$, which we encode as an operator $\ctxhole$. We also introduce a type alias such that $\encode{C[a]}$ has type $Ctx = s \times s$.
+\federeboks{C}{
+    \encode{C[a]} = (\encode{a}, \encode{C}) \\
+    \encode{\ctxhole} = \ctxhole
+}{
+    \caption{Encoding of cursor contexts.}
+    \label{fig:enc_abt_cursor}
+}
+
+%\begin{example}
+%    In \cref{ex:well_formed_trees} we saw that the expression.
+%    \begin{equation*}
+%        \text{let $x=[\hole{e}]$ in $x+5$}
+%    \end{equation*}
+%    is well-formed since it can be written as $C[\dot{e}]$ where
+ %   \begin{align*}
+ %       C &= \quad \text{let $x=\ctxhole$ in $x+5$} \\
+  %      \dot{e}&= \quad [\hole{e}]
+  %  \end{align*}
+%    Encoding $C[\dot{e}]$ following the rules for encoding contexts and the rules for encoding abts in \cref{ex:enc_abt_example} yields the following encoding:
+%    \begin{align*}
+ %       & \encode{C[\dot{e}]} = \\ 
+ %       & (\encode{\text{cursor}_e(\text{hole}_e)}, \encode{\text{let}([\cdot]; x.\text{plus}(\text{var}[x], \text{num}[5]))}) = \\ 
+ %       & (\text{cursor}_e(\text{hole}_e), \text{let} \ [\cdot] \ (\lambda x . %\text{plus} \ \text{var}[x] \ \text{num}[5]))
+ %   \end{align*}
+    
+%\end{example}
+
+\subsection{Atomic Prefix Commands}
+To encode the atomic prefix commands we further extend the lambda calculus with pattern matching. As seen in \cref{fig:apc_syntactic_forms} we introduce the match construct where we match the term $M$ on the patterns $p$ resulting in the corresponding term $N$ if there is a match. As mentioned $p$ is the syntactic category describing the pattern we are trying to match. These patterns consist of variables, wildcards, operators, pairs, and lastly bindings which recursively match on the body of an abstraction. 
+\federeboks{R C L l}{
+    \multicolumn{4}{c}{Terms}
+    \\
+    M, N & ::= & \text{match}\ M\ \overrightarrow{p \to N} & (match construct)
+    \\
+    p & ::= & x              & (variable) \\
+      & |   & \_             & (wildcard) \\
+      & |   & o\ \Vec{p}     & (operator) \\
+      & |   & (p_1, p_2)     & (pair) \\
+      & |   & .p             & (binding)
+}{\caption{Abstract syntax for representing atomic prefix commands, extending the lambda-calculus with a match construct.}\label{fig:apc_syntactic_forms}}
+The reduction rules for the match construct can be seen in the full version of the paper.
+
+We now define the auxiliary functions as seen in \cref{tab:zip_oper}. These function as the operations of a zipper data structure, which helps encode atomic prefix commands on abts. We also introduce the abbreviation $[a]$ to mean the cursor operator with the child $a$.
+
+\federeboks{L}{
+    $down$ \define \lambda x:s.\text{match }x
+    \quad [o \ (.a_1) \dots (.a_n)] \to \\
+    \quad o \ (\lambda \Vec{x_1}.[a_1]) \dots (\Vec{x_n}.a_n) \\\\
+
+    $right$ \define \lambda x:s.\text{match }x
+    \quad o \ (.a_1) \ \dots (.[a_i]) \ \dots (.a_n) \to \\
+    \quad o \ (\lambda \Vec{x_1}.a_1) \ \dots (\lambda \Vec{x_{i+1}}.[a_{i+1}]) \ \dots (\Vec{x_n}.a_n) \\\\
+
+    $up$ \define \lambda x:s.\text{match }x
+    \quad o \ (.a_1) \dots (.[a_i]) \dots (.a_n) \to \\
+    \quad [o \ (\lambda \Vec{x_1}.a_1) \dots (\lambda \Vec{x_n}.a_n)] \\\\
+     
+    $set$ \define \lambda a:s.\lambda x:s.\text{match }x
+    \quad [a'] \to [a]
+}{\caption{Function definitions for cursor movement and substitution on abstract binding trees.}\label{tab:zip_oper}}
+The encoding of atomic prefix commands can be seen in \cref{fig:atc_enc}. The $child$ command can be encoded as a base case and a recursive case. In the base case we want to move to the first $child$, which means we just go down. In the recursive case we want to move to $child$ $n$, we can encode this as moving to $child$ $n-1$ and then moving right. $parent$ and $insert$ can directly be encoded as $up$ and $set$ respectively.
+\federeboks{L L}{
+    \encode{\text{child} \ 1} = \text{down}
+    &
+    \encode{\text{child} \ n} = \text{right}\ \encode{\text{child} \ n - 1}
+    \\\\
+    \encode{\text{parent}} = \text{up}
+    &
+    \encode{\text{insert} \ a} = \text{set} \ \encode{a}
+}{
+    \caption{Encoding of atomic prefix commands.}
+    \label{fig:atc_enc}
+}
+
+\subsection{Control Structures and Modal Logic}
+To encode control structures and modal logic, we need to further extend the lambda-calculus with a \fix operator as well as the $Bool$ base type. We introduce the \fix operator as seen in \cite{types_programming_languages}, as well as boolean types and values. 
+On \cref{fig:edt_enc} the encoding of editor expressions can be seen. For atomic prefixes the atomic prefix command should be applied before the rest of the editor expression. The $nil$ editor expression will become the identity function. Sequential editor expressions will apply the encoding of the editor expressions in the correct order. Recursion works by using the newly introduced \fix operator. Lastly, conditional editor expressions are encoded such that we match on the evaluation of $\phi$ on the first projection of a context $C$ and apply the encoding of $E_1$ or $E_2$ on $C$ accordingly. For the full encoding of modal logic, we refer to the full version of the paper.
+%\federeboks{R C L l}{
+%    \multicolumn{4}{c}{Terms}
+%    \\
+%    M & ::= & \fix\ M & (fixed point of M) \\
+%      & |   & \top    & (true) \\
+%      & |   & \bot    & (false)
+%    \\\\
+%    p & ::= & \top & (match true) \\
+%      & |   & \bot & (match false)
+%    \\\\
+%    \multicolumn{4}{c}{Types}
+%    \\
+%    \tau & ::= & \text{Bool} & (boolean)
+%}{\caption{Abstract syntax for control structures and modal logic, extending the calculus with the \fix operator and boolean types and term constants.}\label{fig:control_syntactic_forms}}
+
+
+%In \cref{fig:cond_aux} we define auxiliary functions that will help with the encoding of conditional expressions. The auxiliary functions $and$, $or$ and $neg$ function as their name would suggest. In our semantics, when checking if a formula $\phi$ holds, we do so against an abt $a$ (i.e $a \vDash \phi$). When constructing the proof tree for such a formula we see that this abt $a$ is propagated up through the proof tree, thus we need to have the ability to propagate an abt throughout our encoded formula as well. To propagate this abt through $and$, $or$ and $neg$ we define the combinators $phoenix$ (liftA2/liftM2 in Haskell) and $bluebird$ (function composition / B combinator).  
+
+
+\federeboks{C C}{
+    \encode{\pi.E} = \lambda C:\text{Ctx}.\encode{E} ( (\encode{\pi} \ C.1) \ , C.2) 
+    \\\\
+    \encode{E_1 \ggg E_2}  = \lambda C:\text{Ctx}. \encode{E_2} (\encode{E_1} C)
+    \\\\
+    \encode{\text{rec } x.E} = \text{fix } ( \lambda x: (\text{Ctx} \to \text{Ctx}).\encode{E}) 
+    \\\\
+    \encode{\phi => E_1 | E_2} = \lambda C:\text{Ctx}.\text{match} \ (\encode{\phi} \ C.1) \\
+        | \ \top ->  \encode{E_1} \ C 
+    \\
+    | \  \bot ->  \encode{E_2} \ C 
+    \\\\
+    \encode{\lr{E, C[a']}} = \encode{E} \  (\encode{a'}, \encode{C})
+        \\\\
+    \encode{\text{nil}} = \lambda C:\text{Ctx}.C \quad \quad    \encode{x} = x
+
+}{
+    \caption{Encoding of editor expressions and context configuration.}
+    \label{fig:edt_enc}
+}
+
+\iffalse
+\federeboks{L C L}{
+    \text{phoenix} &\define& \lambda f: (\text{Bool} \to \text{Bool} \to \text{Bool}). \\
+            &       & \lambda g: (s \to \text{Bool}). \\
+            &       & \lambda h: (s \to \text{Bool}) . \\
+            &       & \lambda a:s . \\
+            &       & f (g a) (h a) 
+    \\\\
+    \text{bluebird} &\define& \lambda f: (\text{Bool} \to \text{Bool}). \\
+             &       & \lambda g: (s \to \text{Bool}) . \\
+             &       & a:s . \\
+             &       & f (g a)
+    \\\\
+
+    \iffalse
+    \text{and} &\define& \lambda \phi_1:(s -> \text{Bool}). \lambda \phi_2:(s -> \text{Bool}) .\lambda a:s.\text{match} (\phi_1 \ a, \phi_2 \ a) \\&&(\top, \top) -> \top \\&|& (\_,\_) -> \bot 
+    \\\\
+
+    \text{or} &\define& \lambda \phi_1:(s -> \text{Bool}). \lambda \phi_2:(s -> \text{Bool}) .\lambda a:s.\text{match} (\phi_1 \ a, \phi_2 \ a)\\&& (\bot, \bot) -> \bot \\&|& (\_,\_) -> \top
+    \\\\
+
+    \text{neg} &\define& \lambda \phi:(s -> \text{Bool}).\lambda a:s.\text{match} (\phi \ a) \\
+    &|& \top -> \bot \\
+    &|& \bot -> \top
+    \\\\
+    \fi
+    
+    \text{or} &\define& \lambda b_1:\text{Bool}. \lambda b_2:\text{Bool}.\text{match} \  (b1,b2) \ \\
+    &|& (\bot,\bot) -> \bot \\
+    &|& (\_, \_) -> \top)
+    \\\\
+    
+    \text{and} &\define& \lambda b_1:\text{Bool}. \lambda b_2:\text{Bool}.\text{match} \  (b1,b2) \\
+    &|& (\top,\top) -> \top \\
+    &|& (\_, \_) -> \bot)
+    \\\\
+
+    \text{neg} &\define& \lambda b:\text{Bool} . \text{match } b \\
+        & |     & \top \to \bot \\
+        & |     & \bot \to \top
+}{
+    \caption{Function definitions for auxiliary functions.}
+    \label{fig:cond_aux}
+}
+The encoding of conjunction, disjunction and negation, shown in \cref{fig:encoding_connectives}, comes quite naturally using the previously defined auxiliary functions.
+\federeboks{L}{
+    \encode{\phi_1 \wedge \phi_2 } = \text{phoenix and} \ \encode{\phi_1} \ \encode{\phi_2}
+    \\\\
+    
+    \encode{\phi_1 \vee \phi_2} = \text{phoenix or} \ \encode{\phi_1} \ \encode{\phi_2}
+    \\\\
+ 
+    \encode{\neg \phi} = \text{bluebird neg} \ \encode{\phi}
+    \\\\
+    \encode{@o} = \lambda x:s . \text{match } x \\
+                \quad | \ [o \ \_ \ \dots \ \_] \to \top  \\
+                \quad | \ \_ \to \bot
+}{\caption{Encoding of propositional connectives}\label{fig:encoding_connectives}}
+In \cref{fig:cond_enc} we show the encoding of modal logic operators.
+\federeboks{L}{    
+    \encode{\Diamond o} = \text{\fix} (\lambda f:(s->\text{Bool})
+    . \lambda x:s . \text{match } x \\
+                        \quad | \ [o \ \_ \ \dots \ \_] \to \top \\
+                        \quad | \  [\_(\_.a_1 , \dots ,\_.a_n)] \to \\
+                        \quad\ \ \text{or} ( \dots (\text{or}\ (f\ [a_1]) \ (f \ [a_2]))\ \dots ) \ (f\ [a_n])\\
+                        \quad | \ \_ \to \bot )
+    \\\\
+    \encode{\square o_1} = \lambda x:s . \text{match } x \\
+                         \quad | \ \_(\_.a_1 , \dots ,\_.a_n) \to \\
+                         \quad\ \ \text{and}(\dots (\text{and}  (\encode{\Diamond o}\ a_1) (\encode{\Diamond o} \ a_2)) \dots )\ (\encode{\Diamond o} \ a_n) \\
+                         \quad | \ \_ \to \top
+}{
+    \caption{Encoding of modal logic and boolean logic operators.}
+    \label{fig:cond_enc}
+}
+$@o$ is encoded such that we pattern match on the on the operator $o$, and if there is a match the resulting value is true, otherwise it is false. $\Diamond o$ uses the \fix operator, as the function is recursively defined. 
+$\square o$ consists of either applying $\Diamond o$ on all the children of the tree, or returning true if there are no children.
+\fi
+With this, the entire editor calculus has been encoded. We refer to the full version of the paper to see the proof of the soundness of our encoding.
+\iffalse
+\begin{example}
+    To illustrate how editor expressions are encoded, we provide an encoding of the following expression
+    \begin{equation*}
+        \text{child\ $2$.nil $\ggg$ parent.nil}
+    \end{equation*}
+    using the encoding rules seen on \cref{fig:edt_enc} and \cref{fig:atc_enc}. For readability purposes we will not add explicit typings, just note that any variable $C_i$ has type $Ctx$.
+    \begin{align*}
+         &\ \encode{\text{child\ $2$.nil $\ggg$ parent.nil}} \\
+         =&\ \lambda C_1 . \encode{\text{parent.nil}} (\encode{\text{child\ $2$.nil}} C_1) \\
+         =&\ \lambda C_1 . (\lambda C_2 . \encode{\text{nil}}(\encode{\text{parent}} C_2.1, C_2.2)) (\encode{\text{child\ $2$.nil}} C_1) \\
+         =&\ \lambda C_1 . (\lambda C_2 . \encode{nil}(up\ C_2.1, C_2.2)) (\encode{child\ 2.nil} C_1) \\
+         =&\ \lambda C_1 . (\lambda C_2 . (\lambda C_3 . C_3)(up\ C_2.1, C_2.2)) (\encode{child\ 2.nil} C_1) \\
+         \betar&\ \lambda C_1 . (\lambda C_2 . (up\ C_2.1, C_2.2)) (\encode{child\ 2.nil} C_1) \\
+         =&\ \lambda C_1 . (\lambda C_2 . (up\ C_2.1, C_2.2)) (\lambda C_3 . \encode{nil} (\encode{child\ 2} C_3.1, C_3.2)C_1) \\
+         =&\ \lambda C_1 . (\lambda C_2 . (up\ C_2.1, C_2.2)) (\lambda C_3 . (\lambda C_4.C_4) (\encode{child\ 2} C_3.1, C_3.2)C_1) \\
+         \betar&\ \lambda C_1 . (\lambda C_2 . (up\ C_2.1, C_2.2)) (\lambda C_3 . (\encode{child\ 2} C_3.1, C_3.2)C_1) \\
+         =&\ \lambda C_1 . (\lambda C_2 . (up\ C_2.1, C_2.2)) (\lambda C_3 . right (\encode{child\ 1} (C_3.1, C_3.2))C_1) \\
+         =&\ \lambda C_1 . (\lambda C_2 . (up\ C_2.1, C_2.2)) (\lambda C_3 . right (down (C_3.1, C_3.2))C_1) \\
+    \end{align*}
+    As can be seen, the editor expression could be fully encoded to the extended lambda calculus. We refer to the full paper for
+\end{example}
+\fi
+
+\section{Conclusion \& Further Work}
+%Conclusion
+We have developed a generalized editor calculus that enables the creation of a syntax-directed editor calculus for a specific abstract syntax. Subsequently, we encoded this editor calculus into an extended version of the lambda calculus, which incorporates pairs, recursion and pattern matching.
+Further work on our generalized editor calculus could be to prove whether the encoding is complete. Otherwise, one could implement a redo-undo construct such as introduced in \cite{undo_Edit} in the generalized editor calculus. Another interesting construct to implement would be a copy-paste operation.
+
+%Furthermore, we have proven the soundness of the encoding of the generalized editor calculus into the extended lambda calculus. As a consequence, given that the type system of the extended lambda calculus is sound, it logically follows that our editor calculus also possesses a sound type system.
+
+%We have identified several possibilities for expanding our work on the generalized editor calculus. First of all, it would be excellent to prove that our encoding is complete. However, in the scope of this paper, we decided to only include the proof of the soundness of the encoding, as that would give us the sound type system. 
+
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{bibliography}
+
+
+\end{document}
+\endinput
+%%
+%% End of file `sample-sigplan.tex'.

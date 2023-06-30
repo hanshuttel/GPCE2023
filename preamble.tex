@@ -1,0 +1,82 @@
+\usepackage[utf8]{inputenc}
+%\usepackage{lmodern}
+\usepackage{uppunctlm}
+\usepackage{amssymb, amsmath}
+\usepackage{array, caption, booktabs}
+\usepackage{stmaryrd}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{semantic}
+\usepackage{mathtools}
+\usepackage{float}
+\usepackage{cleveref}
+\usepackage{xspace}
+\usepackage{fancyvrb}
+\usepackage{listings}
+\usepackage{thmtools}
+
+%\usepackage[
+%backend=biber,
+%style=numeric,
+%sorting=ynt,
+%maxcitenames=1,
+%maxbibnames=99
+%]{biblatex}
+%\addbibresource{bibliography.bib}
+
+\newcolumntype{L}{>{$}l<{$}} % left-oriented math column type
+\newcolumntype{R}{>{$}r<{$}} % right-oriented math column type
+\newcolumntype{C}{>{$}c<{$}} % center-oriented math column type
+
+\newcommand{\lr}[1]{\langle #1 \rangle} % config macro: <#1>
+\newcommand{\sub}[1]{\/\textsubscript{#1}} % subscript macro
+\newcommand{\ltrans}[1]{\stackrel{#1}{\Rightarrow}} % labelled transition pil
+\newcommand{\ltransn}[1]{\stackrel{#1}{\nRightarrow}} % labelled transition pil
+\newcommand{\infeshort}[1]{\inference[{\normalsize(#1)}\;\;]} %formatting of \inference, when in a table side by side
+\newcommand{\infelong}[1]{\inference[{\normalsize(#1)}\qquad]} %formatting of \inference, when on a single line
+\newcommand{\define}{\stackrel{\text{def}}{=}} %def =
+\newcommand{\encode}[1]{\llbracket #1 \rrbracket} %encoding brackets
+\newcommand{\match}[1]{\{\mid #1 \mid\}} %encoding brackets
+\newcommand{\child}{\textsf{child }} % 'child' stands out
+\newcommand{\term}{$\lambda$-term\xspace} % lambda term
+\newcommand{\OP}{\mathcal{O}} %family of operators
+\newcommand{\OPc}{\hat{\mathcal{O}}} %cursorless family of operators
+\newcommand{\OPcc}{\dot{\mathcal{O}}} %cursorless family of operators
+\newcommand{\SORT}{\mathcal{S}} %set of sorts
+\newcommand{\SORTc}{\hat{\mathcal{S}}} %set of cursorless sorts
+\newcommand{\SORTcc}{\dot{\mathcal{S}}} %set of cursorless sorts
+\newcommand{\VAR}{\mathcal{X}} %family of variables
+\newcommand{\VARc}{\hat{\mathcal{X}}} %family of variables
+\newcommand{\VARcc}{\dot{\mathcal{X}}} %family of variables
+\newcommand{\AST}{\mathcal{A}[\VAR]} %family of asts
+\newcommand{\ABT}[1]{\mathcal{B}[\VAR #1]} %family of abts
+\newcommand{\ABTc}[1]{\hat{\mathcal{B}}[\VARc #1]} %family of cursorless abts
+\newcommand{\ABTcc}[1]{\dot{\mathcal{B}}[\VARcc #1]} %family of cursorless abts
+\newcommand{\alphac}{\rightarrow_\alpha} %alpha-conversion
+\newcommand{\betar}{\rightarrow_\beta} %beta-reduction
+\newcommand{\alphae}{\equiv_\alpha} %alpha-equivalence
+\newcommand{\betae}{\equiv_\beta} %beta-equivalence
+\newcommand{\stlc}{$\lambda_{->}$\xspace} %simply typed lambda calculus
+\newcommand{\hole}[1]{\llparenthesis \ \rrparenthesis_#1} %hole, subscripted with a sort
+\newcommand{\ctxhole}{[ \, \cdot \, ]} %context hole
+\newcommand{\fix}{\text{fix}\xspace} %correct fix
+
+\renewcommand{\vec}[1]{\overrightarrow{#1}}
+
+\newcommand{\federeboks}[3]{
+    \begin{figure}[H]
+    \vspace{-3mm}
+    \centering
+    \fbox{%
+        \footnotesize\renewcommand{\arraystretch}{1.25}
+        \setlength{\tabcolsep} {4pt}
+        \begin{tabular}{#1}
+            \addlinespace[1.25ex]
+            #2 \\
+            \addlinespace[1.25ex]
+        \end{tabular}
+    }
+    #3
+    \vspace{-5mm}
+    \end{figure}
+}
+

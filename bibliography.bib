@@ -1,0 +1,154 @@
+@inproceedings{type_safe_structure_editor,
+author = {Godiksen, Christian and Herrmann, Thomas and H\"{u}ttel, Hans and Lauridsen, Mikkel Korup and Owliaie, Iman},
+title = {A Type-Safe Structure Editor Calculus},
+year = {2021},
+isbn = {9781450383059},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3441296.3441393},
+doi = {10.1145/3441296.3441393},
+abstract = {Structure editors make syntax errors impossible, but they still allow construction of programs with incomplete semantics, leading to program states that cannot be evaluated. We introduce a structure editor calculus for a simple functional programming language that allows for incomplete programs. Our editor expressions may interleave construction and evaluation of programs and can thus describe the history of the development of a program. We extend our editor calculus with types and define a resource-aware type system that prohibits editor expressions introducing type errors in the abstract syntax tree and prove that the type system is sound.},
+booktitle = {Proceedings of the 2021 ACM SIGPLAN Workshop on Partial Evaluation and Program Manipulation},
+pages = {1–13},
+numpages = {13},
+keywords = {functional programming, type systems, structure editors},
+location = {Virtual, Denmark},
+series = {PEPM 2021}
+}
+
+@book{harper_foundations,
+author = {Harper, Robert},
+title = {Practical Foundations for Programming Languages},
+year = {2016},
+isbn = {1107150302},
+publisher = {Cambridge University Press},
+address = {USA},
+edition = {2nd},
+abstract = {This text develops a comprehensive theory of programming languages based on type systems and structural operational semantics. Language concepts are precisely defined by their static and dynamic semantics, presenting the essential tools both intuitively and rigorously while relying on only elementary mathematics. These tools are used to analyze and prove properties of languages and provide the framework for combining and comparing language features. The broad range of concepts includes fundamental data types such as sums and products, polymorphic and abstract types, dynamic typing, dynamic dispatch, subtyping and refinement types, symbols and dynamic classification, parallelism and cost semantics, and concurrency and distribution. The methods are directly applicable to language implementation, to the development of logics for reasoning about programs, and to the formal verification language properties such as type safety. This thoroughly revised second edition includes exercises at the end of nearly every chapter and a new chapter on type refinements.}
+}
+
+@book{hüttel_2010, 
+place={Cambridge}, 
+title={Transitions and Trees: An Introduction to Structural Operational Semantics}, 
+DOI={10.1017/CBO9780511840449}, 
+publisher={Cambridge University Press}, 
+author={Hüttel, Hans}, 
+year={2010}
+}
+
+@article{hazelnut,
+author = {Omar, Cyrus and Voysey, Ian and Hilton, Michael and Aldrich, Jonathan and Hammer, Matthew A.},
+title = {Hazelnut: A Bidirectionally Typed Structure Editor Calculus},
+year = {2017},
+issue_date = {January 2017},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {52},
+number = {1},
+issn = {0362-1340},
+url = {https://doi.org/10.1145/3093333.3009900},
+doi = {10.1145/3093333.3009900},
+abstract = {Structure editors allow programmers to edit the tree structure of a program directly. This can have cognitive benefits, particularly for novice and end-user programmers. It also simplifies matters for tool designers, because they do not need to contend with malformed program text. This paper introduces Hazelnut, a structure editor based on a small bidirectionally typed lambda calculus extended with holes and a cursor. Hazelnut goes one step beyond syntactic well-formedness: its edit actions operate over statically meaningful incomplete terms. Na\"{\i}vely, this would force the programmer to construct terms in a rigid "outside-in" manner. To avoid this problem, the action semantics automatically places terms assigned a type that is inconsistent with the expected type inside a hole. This meaningfully defers the type consistency check until the term inside the hole is finished. Hazelnut is not intended as an end-user tool itself. Instead, it serves as a foundational account of typed structure editing. To that end, we describe how Hazelnut's rich metatheory, which we have mechanized using the Agda proof assistant, serves as a guide when we extend the calculus to include binary sum types. We also discuss various interpretations of holes, and in so doing reveal connections with gradual typing and contextual modal type theory, the Curry-Howard interpretation of contextual modal logic. Finally, we discuss how Hazelnut's semantics lends itself to implementation as an event-based functional reactive program. Our simple reference implementation is written using js_of_ocaml.},
+journal = {SIGPLAN Not.},
+month = {jan},
+pages = {86–99},
+numpages = {14},
+keywords = {bidirectional type systems, gradual typing, structure editors, mechanized metatheory}
+}
+
+@InCollection{stanford-lambda-calculus,
+	author       =	{Alama, Jesse and Korbmacher, Johannes},
+	title        =	{{The Lambda Calculus}},
+	booktitle    =	{The {Stanford} Encyclopedia of Philosophy},
+	editor       =	{Edward N. Zalta},
+	howpublished =	{\url{https://plato.stanford.edu/archives/sum2021/entries/lambda-calculus/}},
+	year         =	{2021},
+	edition      =	{{S}ummer 2021},
+	publisher    =	{Metaphysics Research Lab, Stanford University}
+}
+
+@inproceedings{hoas,
+author = {Pfenning, F. and Elliott, C.},
+title = {Higher-Order Abstract Syntax},
+year = {1988},
+isbn = {0897912691},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/53990.54010},
+doi = {10.1145/53990.54010},
+abstract = {We describe motivation, design, use, and implementation of higher-order abstract syntax as a central representation for programs, formulas, rules, and other syntactic objects in program manipulation and other formal systems where matching and substitution or unification are central operations. Higher-order abstract syntax incorporates name binding information in a uniform and language generic way. Thus it acts as a powerful link integrating diverse tools in such formal environments. We have implemented higher-order abstract syntax, a supporting matching and unification algorithm, and some clients in Common Lisp in the framework of the Ergo project at Carnegie Mellon University.},
+booktitle = {Proceedings of the ACM SIGPLAN 1988 Conference on Programming Language Design and Implementation},
+pages = {199–208},
+numpages = {10},
+location = {Atlanta, Georgia, USA},
+series = {PLDI '88}
+}
+
+@book{barendregt_dekkers_statman_2013, 
+place={Cambridge}, 
+series={Perspectives in Logic}, 
+title={Lambda Calculus with Types}, 
+DOI={10.1017/CBO9781139032636}, 
+publisher={Cambridge University Press}, 
+author={Barendregt, Henk and Dekkers, Wil and Statman, Richard}, 
+year={2013}, 
+collection={Perspectives in Logic}
+}
+
+@inproceedings{newcc,
+author = {Gabbay, Murdoch J.},
+title = {A New Calculus of Contexts},
+year = {2005},
+isbn = {1595930906},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/1069774.1069783},
+doi = {10.1145/1069774.1069783},
+abstract = {We study contexts (terms with holes) by proposing a 'λ-calculus with holes'. It is very expressive and can encode programming constructs apparently unrelated to contexts, including objects and algorithms in partial evaluation. We give proofs of confluence, preservation of strong normalisation, principal typing for an ML-style Hindley-Milner type system, and an applicative characterisation of contextual equivalence. We explore the limitations of the calculus including further applications, and discuss how they might be tackled.},
+booktitle = {Proceedings of the 7th ACM SIGPLAN International Conference on Principles and Practice of Declarative Programming},
+pages = {94–105},
+numpages = {12},
+keywords = {binders, functional programming, nominal techniques, calculi of contexts, lambda-calculi},
+location = {Lisbon, Portugal},
+series = {PPDP '05}
+}
+
+@book{types_programming_languages,
+author = {Pierce, Benjamin C.},
+title = {Types and Programming Languages},
+year = {2002},
+isbn = {0262162091},
+publisher = {The MIT Press},
+edition = {1st},
+abstract = {A type system is a syntactic method for automatically checking the absence of certain erroneous behaviors by classifying program phrases according to the kinds of values they compute. The study of type systems -- and of programming languages from a type-theoretic perspective -- has important applications in software engineering, language design, high-performance compilers, and security.This text provides a comprehensive introduction both to type systems in computer science and to the basic theory of programming languages. The approach is pragmatic and operational; each new concept is motivated by programming examples and the more theoretical sections are driven by the needs of implementations. Each chapter is accompanied by numerous exercises and solutions, as well as a running implementation, available via the Web. Dependencies between chapters are explicitly identified, allowing readers to choose a variety of paths through the material.The core topics include the untyped lambda-calculus, simple type systems, type reconstruction, universal and existential polymorphism, subtyping, bounded quantification, recursive types, kinds, and type operators. Extended case studies develop a variety of approaches to modeling the features of object-oriented languages.}
+}
+
+@article{huet_zipper,
+author = {Huet, Gérard},
+year = {1997},
+month = {09},
+pages = {549-554},
+title = {The Zipper},
+volume = {7},
+journal = {J. Funct. Program.},
+doi = {10.1017/S0956796897002864}
+}
+
+@inproceedings{undo_Edit,
+title = "An Editor Calculus With Undo/Redo",
+abstract = "Structure editors provide many potential usability benefits to an end-user by allowing them to edit the AST representation of a program rather than a textual representation of it. In addition, they all but remove syntax errors by only allowing the constructing of programs that are syntactically valid. However, structure editors only rarely include undo/redo functionality into the editor itself, and to the best of our knowledge, an underlying, formal specification for undo/redo has yet to be developed. This paper continues previous work on an editor calculus; we extend the calculus with undo and redo and present a history-based operational semantics of the extension. The history used an underlying graph-based structure, containing a history of user actions in the particular structure editor. We study the expressive power of the calculus, give a simple proof of its Turing-power and use the expressiveness result to show how our history-based extension with undo and redo can be expressed in the original editor calculus.",
+keywords = "operational semantics, reversible computing, syntax directed editors",
+author = "Kj{\ae}r, {Rasmus Rendal} and Lundbergh, {Magnus Holm} and Nielsen, {Magnus Mantzius} and Hans H{\"u}ttel",
+note = "Publisher Copyright: {\textcopyright} 2021 IEEE.; 23rd International Symposium on Symbolic and Numeric Algorithms for Scientific Computing (SYNASC), SYNASC ; Conference date: 07-12-2021 Through 10-12-2021",
+year = "2021",
+month = dec,
+doi = "10.1109/SYNASC54541.2021.00023",
+language = "English",
+series = "Proceedings - 2021 23rd International Symposium on Symbolic and Numeric Algorithms for Scientific Computing, SYNASC 2021",
+pages = "66--74",
+editor = "Carsten Schneider and Mircea Marin and Viorel Negru and Daniela Zaharie",
+booktitle = "Proceedings of 23rd International Symposium on Symbolic and Numeric Algorithms for Scientific Computing (SYNASC)",
+publisher = "IEEE",
+address = "United States",
+url = "https://synasc.ro/2021/",
+}
