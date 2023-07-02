@@ -369,7 +369,7 @@ In editor expressions, we frequently refer to performing actions on, or with, th
  %   }{\caption{Abstract syntax of cursor contexts}\label{fig:example_cursor_contexts}}
 %\end{example}
 
-Although a cursor context accurately specifies the subtree where the cursor must reside, it does not inherently guarantee the presence of only one cursor within that subtree. Therefore, it becomes necessary to introduce the concept of well-formed abt's. We will do this informally, where a well-formed abt is simply an abt containing exactly one cursor. This is guarantied when an abt can be interpreted as $C[\dot{a}]$, meaning the context C, where $\ctxhole$ is substituted with a tree $\dot{a}$, where the cursor-operator is either the root $\dot{a}$, or one of the children of the root.
+Although a cursor context accurately specifies the subtree where the cursor must reside, it does not inherently guarantee the presence of only one cursor within that subtree. Therefore, it becomes necessary to introduce the concept of well-formed abt's. Informally, a well-formed abt is simply an abt containing exactly one cursor. This is guarantied when an abt can be interpreted as $C[\dot{a}]$, meaning the context C, where $\ctxhole$ is substituted with a tree $\dot{a}$, where the cursor-operator is either the root $\dot{a}$, or one of the children of the root.
 
 %\begin{definition}[Well-formed trees]\normalfont
 %    \label{def:well_formed_trees}
@@ -383,27 +383,27 @@ Although a cursor context accurately specifies the subtree where the cursor must
 %    Given this, a well-formed abt $a \in \ABT{}$ is any abt that can be interpreted as $C[\dot{a}]$, since $C$ cannot contain any cursors and $\dot{a}$ contains exactly one.
 %\end{definition}
 
-\begin{example}\label{ex:well_formed_trees}
-   We will now show the extension of \cref{fig:example_abstract_syntax}, where cursors are included, as shown in \cref{fig:example_well_formed_trees}. We note that $\hat{s}$ and $\hat{e}$ are trees without cursors.
-    \federeboks{R C l}{
-        \dot{s} & ::= & let $x = [\hat{e}]$ in $\hat{s}$ | let $x = \hat{e}$ in $[\hat{s}]$ | $[\hat{e}]$ | $[\hat{s}]$ \\
-        \dot{e} & ::= & $[\hat{e}_1] + \hat{e}_2$ | $\hat{e}_1 + [\hat{e}_2]$ | $[\hat{e}]$
-    }{\caption{Abstract syntax of abt's with exactly one cursor}\label{fig:example_well_formed_trees}}
-    Given the syntax in \cref{fig:example_well_formed_trees} and the previously introduced cursor context, we can now determine the well-formedness of any abt in our language. For example the statement
-    \begin{equation*}
-        \text{let $x=[\hole{e}]$ in $x+5$}
-    \end{equation*}
-    is well-formed since it can be written as $C[\dot{e}]$ where
-    \begin{align*}
-        C &= \text{let $x=\ctxhole$ in $x+5$} \\
-        \dot{e}&= [\hole{e}]
-    \end{align*}
-    It should be noted that there often are two valid interpretations of a tree $a$ as $C[\dot{a}]$. In this example, the other valid interpretation would be:
-    \begin{align*}
-        C' &= \ctxhole \\
-        \dot{e}' &= \text{let $x=[\hole{e}]$ in $x+5$}
-    \end{align*}
-\end{example}
+% \begin{example}\label{ex:well_formed_trees}
+%    We will now show the extension of \cref{fig:example_abstract_syntax}, where cursors are included, as shown in \cref{fig:example_well_formed_trees}. We note that $\hat{s}$ and $\hat{e}$ are trees without cursors.
+%     \federeboks{R C l}{
+%         \dot{s} & ::= & let $x = [\hat{e}]$ in $\hat{s}$ | let $x = \hat{e}$ in $[\hat{s}]$ | $[\hat{e}]$ | $[\hat{s}]$ \\
+%         \dot{e} & ::= & $[\hat{e}_1] + \hat{e}_2$ | $\hat{e}_1 + [\hat{e}_2]$ | $[\hat{e}]$
+%     }{\caption{Abstract syntax of abt's with exactly one cursor}\label{fig:example_well_formed_trees}}
+%     Given the syntax in \cref{fig:example_well_formed_trees} and the previously introduced cursor context, we can now determine the well-formedness of any abt in our language. For example the statement
+%     \begin{equation*}
+%         \text{let $x=[\hole{e}]$ in $x+5$}
+%     \end{equation*}
+%     is well-formed since it can be written as $C[\dot{e}]$ where
+%     \begin{align*}
+%         C &= \text{let $x=\ctxhole$ in $x+5$} \\
+%         \dot{e}&= [\hole{e}]
+%     \end{align*}
+%     It should be noted that there often are two valid interpretations of a tree $a$ as $C[\dot{a}]$. In this example, the other valid interpretation would be:
+%     \begin{align*}
+%         C' &= \ctxhole \\
+%         \dot{e}' &= \text{let $x=[\hole{e}]$ in $x+5$}
+%     \end{align*}
+% \end{example}
 
 \subsection{Semantics}
 In this section we present the transition systems and the general forms of transition rules defining these systems, based on the generalized syntax of the editor calculus previously presented. 
@@ -429,7 +429,11 @@ only once $E_1$ has been reduced to $nil$. The recursive expression
 $rec \ x.E$ binds the recursion variable $x$ in $E$, which can then be
 used to recursively iterate an expression. 
 
-Unlike the editor calculus by \cite{type_safe_structure_editor}, we do not utilize any form of structural congruence on editor expressions to define the semantics of trivial sequential composition or recursion. Instead we simply define these notions with their own transition rule (Seq-Trivial) and (Recursion)
+% Unlike the editor calculus by \cite{type_safe_structure_editor}, we do
+% not utilize any form of structural congruence on editor expressions to
+% define the semantics of trivial sequential composition or
+% recursion. Instead we simply define these notions with their own
+% transition rule (Seq-Trivial) and (Recursion) 
 \federeboks{c}{
     \infeshort{Cond-1}
             {a |= \phi}
@@ -610,10 +614,23 @@ The modal operator $\square o$ is satisfied when $o$ is somewhere in every subtr
     }{\caption{Satisfaction relation for modal operators on $plus$}\label{fig:example_satisfaction_relation}}
 \end{example}
 
-\section{Encoding the generalized editor calculus in an extended lambda calculus} \label{sec:encoding}
-In this section we attempt to soundly encode the generalized editor calculus using the simply typed $\lambda$-calculus (\stlc) as the base calculus. The calculus will be extended with various constructs such as pattern matching, pairs and the recursive \textit{fix} operator. To encode the abstract binding trees, we will only need the simply typed lambda calculus. To encode the contexts, we introduce pairs. To encode atomic prefix commands we further extend the calculus with pattern matching ($\lambda_{->,p}$). Lastly to encode modal logic and editor expressions we extend the calculus with a fixed point operator ($\lambda_{->,p,fix}$). 
+\section{Encoding the generalized editor calculus} \label{sec:encoding}
 
-A concrete overview of the calculus and the constructs necessary to encode every central concept of the editor calculus can be seen in \cref{tab:encoding_requirements}.
+To encode the abstract binding trees, the simply typed lambda calculus
+suffices.
+
+In order to encode the generalized editor calculus using the simply
+typed $\lambda$-calculus (\stlc) as the base calculus, we extend the
+latter with new constructs.
+
+To encode the contexts, we introduce pairs. To encode atomic prefix
+commands we further extend the calculus with pattern matching
+($\lambda_{->,p}$). Finally, to encode modal logic and editor
+expressions recursion is needed in the form of the fixed point
+operator ($\lambda_{->,p,fix}$).
+
+An overview of the calculus and the constructs necessary to encode
+each part of it can be seen in \cref{tab:encoding_requirements}.
 
 \begin{table*}
    \centering
@@ -634,14 +651,26 @@ A concrete overview of the calculus and the constructs necessary to encode every
    \caption{Editor calculus fragments and the lambda calculus fragments
      used for encoding them}
    \label{tab:encoding_requirements}
-\end{table*}
+ \end{table*}
 
-\subsection{Motivation}
-The motivation behind encoding the generalized editor calculus in $\lambda_{->,p,fix}$ (or subsets thereof) is most importantly the type system it provides. If our encoding is sound, then any instance of the editor calculus will have a sound type system, regardless of the abstract syntax. This follows from the fact that the type system of $\lambda_{->,p,fix}$ is sound. Our editor calculus having a sound type system means that it will reject incorrect editor expressions. 
+ All of the lambda calculi that we consider in the following have a
+ standard reduction semantics with reductions of the form $e \to
+ e'$. Moreover, every calculus has a type systems with type judgements
+ of the form $\Gamma \vdash e : \tau$, where $\tau$ ranges over a set
+ of types \Types\ and $\Gamma$ is a type environment
+ $\Gamma : \Var \pra \Types$. The type systems all satisfy the subject
+ reduction property.
 
-Secondly a $\lambda_{->,p,fix}$ encoding provides a clear strategy for implementing any instantiation of the generalized editor calculus in a functional programming language.
+ \begin{theorem}[Subject reduction]\label{thm:subred}
+   If $\Gamma \vdash e : \tau$ and $e \to e'$, then $\Gamma \vdash e'
+   : \tau$.
+ \end{theorem}
 
-\subsection{Abstract Binding Trees}
+ It is this result that ensures that our encoding will indeed provide
+ a general result about type soundness for the generalized editor
+ calculus. 
+ 
+\subsection{Abstract binding trees}
 To encode abstract binding trees we only need to use the simply typed lambda-calculus. We extend the lambda-calculus with term constants $o$ for every $o \in \OP$ excluding cursors, and the base types $s$ for every $s \in \SORT$. 
 Typing rules for operators can be seen on \cref{fig:abt_typing_rules},
 where we can infer the type of an operator in the lambda-calculus by
@@ -708,7 +737,7 @@ typings. This can be seen on \cref{fig:enc_abt}.
             \text{let} : e \to (e \to s) \to s
         }
     }{
-        \caption{Types for the encoded operators.}
+        \caption{Types of the encoded operators.}
         \label{fig:abt_example_type}
     }
     
@@ -726,7 +755,7 @@ for example, if we were to encode the statement:
 
 
 
-\subsection{Cursor Contexts}\label{sec:enc_cursor_contexts}
+\subsection{Cursor contexts}\label{sec:enc_cursor_contexts}
 
 To represent abts with cursor contexts we introduce the pair construct similarly to \cite{types_programming_languages}.
 %In \cref{fig:abt_cursor_syntactic_forms} we introduce the new syntactic forms which include the pair construct, first projection, second projection and the product type. 
@@ -771,56 +800,90 @@ In \cref{fig:enc_abt_cursor} the encoding for cursor contexts can be seen. We ca
     
 %\end{example}
 
-\subsection{Atomic Prefix Commands}
-To encode the atomic prefix commands we further extend the lambda calculus with pattern matching. As seen in \cref{fig:apc_syntactic_forms} we introduce the match construct where we match the term $M$ on the patterns $p$ resulting in the corresponding term $N$ if there is a match. As mentioned $p$ is the syntactic category describing the pattern we are trying to match. These patterns consist of variables, wildcards, operators, pairs, and lastly bindings which recursively match on the body of an abstraction. 
-\federeboks{R C L l}{
-    \multicolumn{4}{c}{Terms}
-    \\
-    M, N & ::= & \text{match}\ M\ \overrightarrow{p \to N} & (match construct)
-    \\
-    p & ::= & x              & (variable) \\
-      & |   & \_             & (wildcard) \\
-      & |   & o\ \Vec{p}     & (operator) \\
-      & |   & (p_1, p_2)     & (pair) \\
-      & |   & .p             & (binding)
-}{\caption{Abstract syntax for representing atomic prefix commands, extending the lambda-calculus with a match construct.}\label{fig:apc_syntactic_forms}}
-The reduction rules for the match construct can be seen in the full version of the paper.
+\subsection{Atomic prefix commands}
 
-We now define the auxiliary functions as seen in \cref{tab:zip_oper}. These function as the operations of a zipper data structure, which helps encode atomic prefix commands on abts. We also introduce the abbreviation $[a]$ to mean the cursor operator with the child $a$.
+To encode the atomic prefix commands we further extend the lambda
+calculus with pattern matching. The formation rules are extended as
+shown below; $p$ is the metavariable for patterns.
+% As seen in
+% \cref{fig:apc_syntactic_forms} we introduce the match construct where
+% we match the term $M$ on the patterns $p$ resulting in the
+% corresponding term $N$ if there is a match. As mentioned $p$ is the
+% syntactic category describing the pattern we are trying to
+% match. These patterns consist of variables, wildcards, operators,
+% pairs, and lastly bindings which recursively match on the body of an
+% abstraction.  
+% \federeboks{R C L l}{
+%     \multicolumn{4}{c}{Terms}
+%     \\
+\begin{align*}
+    M, N & ::= & \text{match}\ M\ \overrightarrow{p \to N} && \text{(match construct)}
+    \\
+    p & ::= & x              & & \text{(variable)} \\
+      & |   & \_             && \text{(wildcard)} \\
+      & |   & o\ \Vec{p}     && \text{(operator)} \\
+      & |   & (p_1, p_2)     && \text{(pair)} \\
+         & |   & .p             && \text{(binding)}
+\end{align*}
+%} {\caption{Abstract syntax for representing atomic prefix commands, extending the lambda-calculus with a match construct.}\label{fig:apc_syntactic_forms}}
+%The reduction rules for the match construct can be seen in the full version of the paper.
+%
+We are now able to define functions functions that describe navigation
+in an abt and substitution; the definitions are givren in
+\cref{tab:zip_oper}. We introduce the abbreviation $[a]$ to mean the
+cursor operator with the child $a$.
 
 \federeboks{L}{
-    $down$ \define \lambda x:s.\text{match }x
+    \textit{down} \define \lambda x:s.\text{match }x
     \quad [o \ (.a_1) \dots (.a_n)] \to \\
     \quad o \ (\lambda \Vec{x_1}.[a_1]) \dots (\Vec{x_n}.a_n) \\\\
 
-    $right$ \define \lambda x:s.\text{match }x
+    \textit{right} \define \lambda x:s.\text{match }x
     \quad o \ (.a_1) \ \dots (.[a_i]) \ \dots (.a_n) \to \\
     \quad o \ (\lambda \Vec{x_1}.a_1) \ \dots (\lambda \Vec{x_{i+1}}.[a_{i+1}]) \ \dots (\Vec{x_n}.a_n) \\\\
 
-    $up$ \define \lambda x:s.\text{match }x
+    \textit{up} \define \lambda x:s.\text{match }x
     \quad o \ (.a_1) \dots (.[a_i]) \dots (.a_n) \to \\
     \quad [o \ (\lambda \Vec{x_1}.a_1) \dots (\lambda \Vec{x_n}.a_n)] \\\\
      
-    $set$ \define \lambda a:s.\lambda x:s.\text{match }x
+    \textit{set} \define \lambda a:s.\lambda x:s.\text{match }x
     \quad [a'] \to [a]
-}{\caption{Function definitions for cursor movement and substitution on abstract binding trees.}\label{tab:zip_oper}}
-The encoding of atomic prefix commands can be seen in \cref{fig:atc_enc}. The $child$ command can be encoded as a base case and a recursive case. In the base case we want to move to the first $child$, which means we just go down. In the recursive case we want to move to $child$ $n$, we can encode this as moving to $child$ $n-1$ and then moving right. $parent$ and $insert$ can directly be encoded as $up$ and $set$ respectively.
+}{\caption{Defining cursor movement and
+    substitution.}\label{tab:zip_oper}}
+
+The encoding of atomic prefix commands are given in
+\cref{fig:atc_enc}. Note that the $child$ command is defined
+recursively. \textit{parent} and \textit{insert} are simply encoded as \textit{up} and \textit{set} respectively.
 \federeboks{L L}{
-    \encode{\text{child} \ 1} = \text{down}
+    \encode{\textit{child} \ 1} = \textit{down}
     &
-    \encode{\text{child} \ n} = \text{right}\ \encode{\text{child} \ n - 1}
+    \encode{\textit{child} \ n} = \textit{right}\ \encode{\text{child} \ n - 1}
     \\\\
-    \encode{\text{parent}} = \text{up}
+    \encode{\textit{parent}} = \textit{up}
     &
-    \encode{\text{insert} \ a} = \text{set} \ \encode{a}
+    \encode{\textit{insert} \ a} = \textit{set} \ \encode{a}
 }{
     \caption{Encoding of atomic prefix commands.}
     \label{fig:atc_enc}
 }
 
-\subsection{Control Structures and Modal Logic}
-To encode control structures and modal logic, we need to further extend the lambda-calculus with a \fix operator as well as the $Bool$ base type. We introduce the \fix operator as seen in \cite{types_programming_languages}, as well as boolean types and values. 
-On \cref{fig:edt_enc} the encoding of editor expressions can be seen. For atomic prefixes the atomic prefix command should be applied before the rest of the editor expression. The $nil$ editor expression will become the identity function. Sequential editor expressions will apply the encoding of the editor expressions in the correct order. Recursion works by using the newly introduced \fix operator. Lastly, conditional editor expressions are encoded such that we match on the evaluation of $\phi$ on the first projection of a context $C$ and apply the encoding of $E_1$ or $E_2$ on $C$ accordingly. For the full encoding of modal logic, we refer to the full version of the paper.
+\subsection{Control structures and modal logic}
+
+To encode control structures and modal logic, we need to further
+extend the lambda-calculus with a \fix operator as well as the $Bool$
+base type. We introduce the \fix operator as seen in
+\cite{types_programming_languages}, as well as boolean types and
+values.
+
+\cref{fig:edt_enc} shows the encoding of editor expressions. For
+atomic prefixes the atomic prefix command is applied before the
+rest of the editor expression. The $nil$ editor expression is
+the identity function. Sequential editor expressions apply the
+encoding of the editor expressions in the correct order. Recursion
+works by using the \fix operator. Lastly, conditional
+editor expressions are encoded such that we match on the evaluation of
+$\phi$ on the first projection of a context $C$ and apply the encoding
+of $E_1$ or $E_2$ on $C$ accordingly. 
 %\federeboks{R C L l}{
 %    \multicolumn{4}{c}{Terms}
 %    \\
@@ -905,7 +968,9 @@ On \cref{fig:edt_enc} the encoding of editor expressions can be seen. For atomic
     \caption{Function definitions for auxiliary functions.}
     \label{fig:cond_aux}
 }
-The encoding of conjunction, disjunction and negation, shown in \cref{fig:encoding_connectives}, comes quite naturally using the previously defined auxiliary functions.
+The encoding of propositional connectives is shown in
+\cref{fig:encoding_connectives}.
+
 \federeboks{L}{
     \encode{\phi_1 \wedge \phi_2 } = \text{phoenix and} \ \encode{\phi_1} \ \encode{\phi_2}
     \\\\
@@ -939,39 +1004,61 @@ In \cref{fig:cond_enc} we show the encoding of modal logic operators.
 $@o$ is encoded such that we pattern match on the on the operator $o$, and if there is a match the resulting value is true, otherwise it is false. $\Diamond o$ uses the \fix operator, as the function is recursively defined. 
 $\square o$ consists of either applying $\Diamond o$ on all the children of the tree, or returning true if there are no children.
 \fi
-With this, the entire editor calculus has been encoded. We refer to the full version of the paper to see the proof of the soundness of our encoding.
-\iffalse
-\begin{example}
-    To illustrate how editor expressions are encoded, we provide an encoding of the following expression
-    \begin{equation*}
-        \text{child\ $2$.nil $\ggg$ parent.nil}
-    \end{equation*}
-    using the encoding rules seen on \cref{fig:edt_enc} and \cref{fig:atc_enc}. For readability purposes we will not add explicit typings, just note that any variable $C_i$ has type $Ctx$.
-    \begin{align*}
-         &\ \encode{\text{child\ $2$.nil $\ggg$ parent.nil}} \\
-         =&\ \lambda C_1 . \encode{\text{parent.nil}} (\encode{\text{child\ $2$.nil}} C_1) \\
-         =&\ \lambda C_1 . (\lambda C_2 . \encode{\text{nil}}(\encode{\text{parent}} C_2.1, C_2.2)) (\encode{\text{child\ $2$.nil}} C_1) \\
-         =&\ \lambda C_1 . (\lambda C_2 . \encode{nil}(up\ C_2.1, C_2.2)) (\encode{child\ 2.nil} C_1) \\
-         =&\ \lambda C_1 . (\lambda C_2 . (\lambda C_3 . C_3)(up\ C_2.1, C_2.2)) (\encode{child\ 2.nil} C_1) \\
-         \betar&\ \lambda C_1 . (\lambda C_2 . (up\ C_2.1, C_2.2)) (\encode{child\ 2.nil} C_1) \\
-         =&\ \lambda C_1 . (\lambda C_2 . (up\ C_2.1, C_2.2)) (\lambda C_3 . \encode{nil} (\encode{child\ 2} C_3.1, C_3.2)C_1) \\
-         =&\ \lambda C_1 . (\lambda C_2 . (up\ C_2.1, C_2.2)) (\lambda C_3 . (\lambda C_4.C_4) (\encode{child\ 2} C_3.1, C_3.2)C_1) \\
-         \betar&\ \lambda C_1 . (\lambda C_2 . (up\ C_2.1, C_2.2)) (\lambda C_3 . (\encode{child\ 2} C_3.1, C_3.2)C_1) \\
-         =&\ \lambda C_1 . (\lambda C_2 . (up\ C_2.1, C_2.2)) (\lambda C_3 . right (\encode{child\ 1} (C_3.1, C_3.2))C_1) \\
-         =&\ \lambda C_1 . (\lambda C_2 . (up\ C_2.1, C_2.2)) (\lambda C_3 . right (down (C_3.1, C_3.2))C_1) \\
-    \end{align*}
-    As can be seen, the editor expression could be fully encoded to the extended lambda calculus. We refer to the full paper for
-\end{example}
-\fi
 
-\section{Conclusion \& Further Work}
-%Conclusion
-We have developed a generalized editor calculus that enables the creation of a syntax-directed editor calculus for a specific abstract syntax. Subsequently, we encoded this editor calculus into an extended version of the lambda calculus, which incorporates pairs, recursion and pattern matching.
-Further work on our generalized editor calculus could be to prove whether the encoding is complete. Otherwise, one could implement a redo-undo construct such as introduced in \cite{undo_Edit} in the generalized editor calculus. Another interesting construct to implement would be a copy-paste operation.
+
+% \begin{example}
+%     We are now able to give an example of how to encode editor
+%     expressions. Consider
+%     \begin{equation*}
+%         \text{child\ $2$.nil $\ggg$ parent.nil}
+%     \end{equation*}
+%     using the encoding rules seen on \cref{fig:edt_enc} and \cref{fig:atc_enc}. For readability purposes we will not add explicit typings, just note that any variable $C_i$ has type $Ctx$.
+%     \begin{align*}
+%          &\ \encode{\text{child\ $2$.nil $\ggg$ parent.nil}} \\
+%          =&\ \lambda C_1 . \encode{\text{parent.nil}} (\encode{\text{child\ $2$.nil}} C_1) \\
+%          =&\ \lambda C_1 . (\lambda C_2 . \encode{\text{nil}}(\encode{\text{parent}} C_2.1, C_2.2)) (\encode{\text{child\ $2$.nil}} C_1) \\
+%          =&\ \lambda C_1 . (\lambda C_2 . \encode{nil}(up\ C_2.1, C_2.2)) (\encode{child\ 2.nil} C_1) \\
+%          =&\ \lambda C_1 . (\lambda C_2 . (\lambda C_3 . C_3)(up\ C_2.1, C_2.2)) (\encode{child\ 2.nil} C_1) \\
+%          \betar&\ \lambda C_1 . (\lambda C_2 . (up\ C_2.1, C_2.2)) (\encode{child\ 2.nil} C_1) \\
+%          =&\ \lambda C_1 . (\lambda C_2 . (up\ C_2.1, C_2.2)) (\lambda C_3 . \encode{nil} (\encode{child\ 2} C_3.1, C_3.2)C_1) \\
+%          =&\ \lambda C_1 . (\lambda C_2 . (up\ C_2.1, C_2.2)) (\lambda C_3 . (\lambda C_4.C_4) (\encode{child\ 2} C_3.1, C_3.2)C_1) \\
+%          \betar&\ \lambda C_1 . (\lambda C_2 . (up\ C_2.1, C_2.2)) (\lambda C_3 . (\encode{child\ 2} C_3.1, C_3.2)C_1) \\
+%          =&\ \lambda C_1 . (\lambda C_2 . (up\ C_2.1, C_2.2)) (\lambda C_3 . right (\encode{child\ 1} (C_3.1, C_3.2))C_1) \\
+%          =&\ \lambda C_1 . (\lambda C_2 . (up\ C_2.1, C_2.2)) (\lambda C_3 . right (down (C_3.1, C_3.2))C_1) \\
+%     \end{align*}
+%     As can be seen, the editor expression could be fully encoded to the extended lambda calculus. We refer to the full paper for
+% \end{example}
+
+\subsection{Soundness of the encoding}
+
+The main result about our encoding is that it is sound wrt. the
+operational semantics of the original calculus.
+
+\begin{theorem}[Soundness] For every editor expression $E$ and abt $a$
+  we have that if
+  %
+  \[ \lr{E,a} \ltrans{} \lr{E',a'} \]
+  then
+  \[ \encode{E}\encode{a} \rightarrow^{\ast}  \encode{E'}\encode{a'}  \]
+\end{theorem}
+
+\section{Conclusion and Further Work}
+
+We have developed a generalized editor calculus that enables the
+creation of a syntax-directed editor calculus for a specific abstract
+syntax. Subsequently, we encoded this editor calculus into an extended
+version of the lambda calculus, which incorporates pairs, recursion
+and pattern matching.  Further work on our generalized editor calculus
+could be to prove whether the encoding is complete. Otherwise, one
+could implement a redo-undo construct such as introduced in
+\cite{undo_Edit} in the generalized editor calculus. Another
+interesting construct to implement would be a copy-paste operation.
 
 %Furthermore, we have proven the soundness of the encoding of the generalized editor calculus into the extended lambda calculus. As a consequence, given that the type system of the extended lambda calculus is sound, it logically follows that our editor calculus also possesses a sound type system.
 
-%We have identified several possibilities for expanding our work on the generalized editor calculus. First of all, it would be excellent to prove that our encoding is complete. However, in the scope of this paper, we decided to only include the proof of the soundness of the encoding, as that would give us the sound type system. 
+We have identified several possibilities for expanding our work on the
+generalized editor calculus. First of all, the encoding should be
+proved complete. Secondly, 
 
 
 \bibliographystyle{ACM-Reference-Format}
