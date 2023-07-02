@@ -1,55 +1,6 @@
-\documentclass[sigplan,screen]{acmart}
+\documentclass[sigplan,anonymous,review]{acmart}
 \input{preamble}
-%%
-%% This is file `sample-sigplan.tex',
-%% generated with the docstrip utility.
-%%
-%% The original source files were:
-%%
-%% samples.dtx  (with options: `sigplan')
-%% 
-%% IMPORTANT NOTICE:
-%% 
-%% For the copyright see the source file.
-%% 
-%% Any modified versions of this file must be renamed
-%% with new filenames distinct from sample-sigplan.tex.
-%% 
-%% For distribution of the original source see the terms
-%% for copying and modification in the file samples.dtx.
-%% 
-%% This generated file may be distributed as long as the
-%% original source files, as listed above, are part of the
-%% same distribution. (The sources need not necessarily be
-%% in the same archive or directory.)
-%%
-%%
-%% Commands for TeXCount
-%TC:macro \cite [option:text,text]
-%TC:macro \citep [option:text,text]
-%TC:macro \citet [option:text,text]
-%TC:envir table 0 1
-%TC:envir table* 0 1
-%TC:envir tabular [ignore] word
-%TC:envir displaymath 0 word
-%TC:envir math 0 word
-%TC:envir comment 0 0
-%%
-%%
-%% The first command in your LaTeX source must be the \documentclass
-%% command.
-%%
-%% For submission and review of your manuscript please change the
-%% command to \documentclass[manuscript, screen, review]{acmart}.
-%%
-%% When submitting camera ready or to TAPS, please change the command
-%% to \documentclass[sigconf]{acmart} or whichever template is required
-%% for your publication.
-%%
-%%
 
-
-%%
 %% \BibTeX command to typeset BibTeX logo in the docs
 \AtBeginDocument{%
   \providecommand\BibTeX{{%
@@ -65,7 +16,6 @@
 \acmYear{2023}
 \acmDOI{XXXXXXX.XXXXXXX}
 
-%% These commands are for a PROCEEDINGS abstract or paper.
 \acmConference[GPCE 2023]{Make sure to enter the correct
   conference title from your rights confirmation emai}{July 07--07,
   2023}{Woodstock, NY}
@@ -119,7 +69,7 @@
 %%
 %% The "title" command has an optional parameter,
 %% allowing the author to define a "short title" to be used in page headers.
-\title{A generalised editor calculus (Short Paper)}
+\title{A type-safe generalized editor calculus (Short Paper)}
 
 %%
 %% The "author" command and its associated commands are used to define
@@ -185,9 +135,6 @@
 %% of authors' names for this purpose.
 \renewcommand{\shortauthors}{AAU Bachelor}
 
-%%
-%% The abstract is a short summary of the work to be presented in the
-%% article.
 \begin{abstract}
 In this paper, we present a generalization of a syntax-directed editor calculus, which can be used to instantiate a specialized syntax-directed editor for any language, given by some abstract syntax. The editor calculus guarantees the absence of syntactical errors while allowing incomplete programs. The generalized editor calculus is then encoded into a simply typed lambda calculus, extended with pairs, booleans, pattern matching and fixed points.
 \end{abstract}
@@ -251,87 +198,145 @@ In this paper, we present a generalization of a syntax-directed editor calculus,
 \maketitle
 
 \section{Introduction}
-This paper is on the topic of syntax-directed editors. 
-Most current examples of syntax-directed editor calculi, such as the ones presented by \cite{hazelnut} and \cite{type_safe_structure_editor}, are typically tailored specifically towards editing abstract syntax trees from an applied $\lambda$-calculus. 
-This fact alone limits the usable scope of these calculi, since they would be rendered useless given any other form of abstract syntax. 
 
-Furthermore, these calculi do not account for binding mechanisms in abstract syntax. Many of the editor calculi possess the ability to interleave construction and evaluation of programs, however, a consequence of this is a complex type system.
+Syntax-directed editors aka projectional editors are specialized
+editors that allow programmers to create programs directly using the
+syntax of the programming language. A prominent early example of an
+editor of this kind is that of the Cornell Program Synthesizer by Reps and
+Teitelbaum \cite{10.1145/358746.358755}, that was designed with the
+PL/I language in mind.
 
-In this paper we propose a generalized editor calculus that can be used to create a syntax-directed editor calculus for any abstract syntax. 
-Our editor calculus is inspired by higher-order abstract syntax presented in \cite{hoas}, and it will take binding-mechanisms into account. We have encoded our generalized editor calculus into a simply-typed lambda calculus extended with pairs, booleans, pattern matching and fixed-points.
+More recent developments introduce models of computation that are
+specialized towards this form of editing. The Hazelnut framework by
+Omar et al. \cite{hazelnut} and the work by Godiksen et al. and
+\cite{type_safe_structure_editor} introduce editor calculi that
+describe the syntax and operational semantics of editing commands,
+including how such commands can be combined. This line of work has
+been tailored specifically towards editing abstract syntax trees from
+an applied $\lambda$-calculus.
 
-%Copy paste fra her
-\section{Generalized Editor Calculus}\label{sec:general_editor}
-We will now present a generalization of the syntax-directed editor calculus by \cite{type_safe_structure_editor}. 
-This specific editor calculus was designed with the language of an applied $\lambda$-calculus in mind. 
-%Instead, by using the notion of abstract syntax as presented in \cite{sec:pre_abstract_syntax} we generalize the concepts of the editor calculus to account for any language given by some abstract syntax.
+A major advantage of this approach is that it is typed -- each such editor calculus
+is equipped with a type system that guarantees that if an editor term
+$E$ is well-typed, then $e$ will produce a well-formed program.
 
-\subsection{Syntax}
+However, existing editor calculi do not account for context-sensitive
+aspects of program syntax, and notable not the binding 
+mechanisms that are prominenet in abstract syntax.
 
-\subsubsection{Abstract Syntax}
-Firstly, we introduce the general representation of some abstract syntax that will be the focus of the editor calculus. We assume the abstract syntax is given by a set of sorts $\SORT$, an arity-indexed family of operators $\OP$ and a sort-indexed family of variables $\VAR$, such as presented in \cite{harper_foundations}. For the full definitions we refer to the full version of the paper.
+Moreover, the work so far has been dependent on the syntax of the
+programming language that the editor must support. Whenever the
+programming language changes, the type safety results for the editor
+calculus have had to be proved anew. An example of this is the work by
+Andersen et al \cite{10.1145/3587216.3587221} on extending the editor
+calculus of \cite{type_safe_structure_editor} with let-declarations.
 
-The notion of cursors and holes is central to the idea of an editor calculus. Whereas the calculus in \cite{type_safe_structure_editor} only has one cursor and hole term, in the general case we need a cursor and hole operator for every sort in the abstract syntax.
-With the set of sorts $\SORT$, the extended family of operators $\OP$ and family of variables $\VAR$ we can then define the sort-indexed family of abstract binding trees (refered to as "abt") $\ABT{}$ as the smallest family that satisfies the conditions of $\ABT{}$'s in \cite{harper_foundations}.
+In later work, Reps and Teitelbaum showed \cite{10.1145/390011.808247}
+how one can generalize their original work to build a Synthesizer
+Generator that would create a syntax-directed editor for any given
+programming language, given a specification of its syntax in the form
+of an attribute grammar. Around the same time, Donzeau-Gouge et
+al. developed the Mentor programming environment
+\cite{10.5555/800054.801990} that involved a command language, Mentol,
+and allowed designers to specify language-specific specializations
+using a specification language, Metal.
+
+In this paper we propose a generalized editor calculus that deals with
+these two issues.
+
+Our calculus deals with binding mechanisms by using notions from
+higher-order abstract syntax \cite{hoas}. Moreover, and importantly,
+we show how to encode encoded our generalized editor calculus into
+versions of the simply-typed lambda calculus extended with pairs,
+booleans, pattern matching and fixed-points. These fragments are all
+known to have type systems with strong safety guarantees, and in this
+way we a general result on type safety that applies to any instance of
+our generalized editor calculus.
+
+\section{A Generalized Editor Calculus}\label{sec:general_editor}
+
+We first present a generalization of the syntax-directed editor
+calculus by \cite{type_safe_structure_editor}.
+
+\subsection{Representing abstract syntax}
+
+We assume the abstract syntax is given by a set of sorts $\SORT$, an arity-indexed family of operators $\OP$ and a sort-indexed family of variables $\VAR$, such as presented in \cite{harper_foundations}.  
+
+The notion of cursors and holes is central to the idea of an editor
+calculus. Whereas the calculus in \cite{type_safe_structure_editor}
+only has one cursor and hole term, in the general case we need a
+cursor and hole operator for every sort in the abstract syntax.  With
+the set of sorts $\SORT$, the extended family of operators $\OP$ and
+family of variables $\VAR$ we can then define the sort-indexed family
+of abstract binding trees (refered to as "abt") $\ABT{}$ as the
+smallest family that satisfies the conditions of $\ABT{}$'s in
+\cite{harper_foundations}.
 
 \begin{example}\label{ex:abstract_syntax}
-    %To illustrate how the generalized editor calculus could be instantiated for some language, we will specialize an editor calculus as we proceed through this section for the abstract syntax shown in \cref{fig:example_abstract_syntax}.
-    To illustrate how the generalized editor calculus could be instantiated for some language, we will through our examples specialize an editor calculus. The abstract syntax for our specialization language is shown in \cref{fig:example_abstract_syntax}.
-    \federeboks{R C L L L}{
-        \text{Sort} && \text{Term} & \text{Operator} & \text{Arity} \\
+Consider the following simple language of expressions with local declarations.
+\begin{align*}
+  \text{Sort} && \text{Term} & \text{Operator} & \text{Arity} \\
         s & ::= & \text{let $x = e$ in $s$} & \text{let} & (e, e.s)s \\
         & | & e & \text{exp} & (e)s \\
         e & ::= & e_1 + e_2 & \text{plus} & (e,e)e \\
         & | & n & \text{num}[n] & ()e \\
         & | & x & \text{var}[x] & ()e
-    }{\caption{Abstract syntax of arithmetic expressions and local declarations}\label{fig:example_abstract_syntax}}
-    The syntax in \cref{fig:example_abstract_syntax} describes a very simple language of statements and expressions. For example, using the abstract syntax we could construct the statement
+\end{align*}
+ We can here represent
     \begin{equation*}
         \text{let $x=5$ in let $y=10$ in $x+y$}
     \end{equation*}
-    which, using operators, would be represented as the abt
+    as the abt
     \begin{equation*}
         \text{let}(5;x.\text{let}(10;y.\text{exp}(\text{plus}(x;y))))
     \end{equation*} 
-    
-    Given the abstract syntax in \cref{fig:example_abstract_syntax} we can extend it with holes and cursors. This gives us the new operators shown in \cref{fig:example_holes_and_cursors}.
-    \federeboks{R C L L L}{
+%
+    We can extend this language with holes and cursors and get
+    %
+\begin{align*}
         \text{Sort} && \text{Term} & \text{Operator} & \text{Arity} \\
         s & ::= & [s] & \text{cursor}_s & (s)s \\
         & | & \hole{s} & \text{hole}_s & ()s \\
         e & ::= & [e] & \text{cursor}_e & (e)e \\
         & | & \hole{e} & \text{hole}_e & ()e
-    }{\caption{Introduction of cursors and holes to the abstract syntax in \cref{fig:example_abstract_syntax}}\label{fig:example_holes_and_cursors}}
-    With this extension we can now represent statements with holes and cursors as abt's. For example the statement
+ \end{align*}
+%
+    With this extension the statement
     \begin{equation*}
         \text{let $x=[5]$ in $x+\hole{e}$}
     \end{equation*}
-    would be represented as the abt
+    is represented as the abt
     \begin{equation*}
         \text{let}(\text{cursor}_e(5); x.\text{exp}(\text{plus}(x;\text{hole}_e)))    
     \end{equation*}
 \end{example}
 
-\subsubsection{Editor Calculus}
-The abstract syntax of the generalized editor calculus is shown in \cref{fig:editor_calculus_syntax}. It closely resembles that of the calculus presented by \cite{type_safe_structure_editor}.
-\federeboks{R C L}{
-    E & ::= & \pi.E \ | \ \phi => E_1|E_2 \ | \ E_1 \ggg E_2 \ | \ \text{rec} \ x.E \ | \ x \ | \ \text{nil} \\
-    \pi & ::= & \text{child} \ n \ | \ \text{parent} \ | \ \{o\} \\
-    \phi & ::= & \neg\phi \ | \ \phi_1 \wedge \phi_2 \ | \ \phi_1 \vee \phi_2 \ | \ @o \ | \ \Diamond o \ | \ \square o
-}{\caption{Abstract syntax of general editor calculus}\label{fig:editor_calculus_syntax}}
-Editor expressions $E \in Edt$, where $Edt$ is the sort of editor expressions, describes the behaviour of the editor calculus. The semantics behind the different constructs are defined in section \cref{sec:Semantics}.
-
+\subsubsection{The editor calculus}
+Editor expressions $E \in \Edt$, where $\Edt$ is the sort of editor
+expressions, describe the possible edit actions. The formation rules
+are given below.
+%
+\begin{align*}
+  E & ::= & \pi.E  \mid  \phi => E_1|E_2  \mid  E_1 \ggg E_2  \mid  \text{rec} \ x.E  \mid  x  \mid  \text{nil} \\
+    \pi & ::= & \text{child} \ n  \mid  \text{parent}  \mid  \{o\} \\
+    \phi & ::= & \neg\phi  \mid  \phi_1 \wedge \phi_2  \mid  \phi_1 \vee \phi_2  \mid  @o  \mid  \Diamond o  \mid  \square o
+\end{align*}
+%
 Evaluation of abt's, which \cite{type_safe_structure_editor} introduces through a $eval$ construct, is not included in our generalized version. This omission is due to evaluation being entirely dependent on the dynamics of the language in focus, and not the static and structural properties the abstract syntax describes. To define the concept of evaluation in a generalized manner, it would be necessary to devise a formal and concise approach for specifying the semantics of operators.
 
 \begin{example}\label{ex:editor_calculus}
-    Expanding upon \cref{ex:abstract_syntax}, we can specialize the abstract syntax of the general editor calculus presented in \cref{fig:editor_calculus_syntax} for our simple language by defining the set of operators $o$ ranges over. In this case we have that
+    We can define a version of the editor calculus for
+    \cref{ex:abstract_syntax} by defining the set of operators $o$ ranges over. In this case we have that
     \begin{equation*}
         o \in \{ \text{let}, \text{exp}, \text{hole}_s, \text{plus}, \text{num}[n], \text{var}[x], \text{hole}_e \}
     \end{equation*}
-    allowing us to write editor expressions such as $(@\text{hole}_e => \{\text{plus}\}.\text{nil}|\text{nil})$, which would substitute the current tree encapsulated by the cursor with the $plus$ operator, if the cursor is at the operator $\text{hole}_e$.
+    We can then write e.g. $(@\text{hole}_e =>
+    \{\text{plus}\}.\text{nil}|\text{nil})$. This expression would
+    substitute the current tree encapsulated by the cursor with the
+    $plus$ operator, if the cursor is at the operator
+    $\text{hole}_e$. 
 \end{example}
 
-\subsubsection{Cursor Context}
+\subsubsection{Cursor contexts}
 In editor expressions, we frequently refer to performing actions on, or with, the abt that is currently encapsulated by the cursor. To support this notion we introduce cursor contexts $C$, inspired by the zipper data structure by \cite{huet_zipper}, as a way to locate the cursor in an abt. Central to this idea is the cursor context $\ctxhole$, or context hole, which specifies the subtree within which the cursor must reside, either as the root, or one of the first children.  For the full definition of cursor contexts, we refer to the full version of the paper, or to \cite{type_safe_structure_editor}, as they have a very similar construct.
 
 %To ensure that the cursor can only reside somewhere within the subtree specified by the context hole, we need to introduce some notion of cursorless abt's, written as $\hat{s}$. Using the abstract syntax, given by $\SORT$, $\OP$ and $\VAR$, we define a new corresponding abstract syntax which can only build abt's without cursors.
@@ -404,7 +409,25 @@ Although a cursor context accurately specifies the subtree where the cursor must
 In this section we present the transition systems and the general forms of transition rules defining these systems, based on the generalized syntax of the editor calculus previously presented. 
 
 \subsubsection{Editor Expressions} \label{sec:Semantics}
-The labelled transition system for editor expressions is defined as $(Edt \times \ABT{}, Apc \cup \{\epsilon\}, \Rightarrow)$. Transitions are of the form $\lr{E, a} \ltrans{\alpha} \lr{E', a'}$ where the editor expression $E \in Edt$ is closed and the abt $a \in \ABT{}$ is well-formed. The labels of the transitions, $\alpha$, are the atomic prefix commands $Apc$ and the silent transition $\epsilon$. The transition relation $\Rightarrow$ is defined by the rules shown in \cref{fig:editor_expression_rules}. These facilitate ways of composing editor expressions together with conditions, sequential composition and recursion. The means of traversing and modifying an abt are provided by the prefixed expression $\pi.E$, which evaluates $\pi$ before continuing with $E$. The conditional expression $\phi => E_1|E_2$ reduces to $E_1$ if $\phi$ is satisfied and $E_2$ otherwise. The sequential expression $E_1 \ggg E_2$ evaluates $E_2$ only once $E_1$ has been reduced to $nil$. The recursive expression $rec \ x.E$ binds the recursion variable $x$ in $E$, which can then be used to recursively iterate an expression.
+
+The labelled transition system for editor expressions is defined as
+$(\Edt \times \ABT{}, Apc \cup \{\epsilon\},
+\Rightarrow)$. Transitions are of the form $\lr{E, a} \ltrans{\alpha}
+\lr{E', a'}$ where the editor expression $E \in \Edt$ is closed and
+the abt $a \in \ABT{}$ is well-formed. The labels of the transitions,
+$\alpha$, are the atomic prefix commands $Apc$ and the silent
+transition $\epsilon$. The transition relation $\Rightarrow$ is
+defined by the rules shown in
+\cref{fig:editor_expression_rules}. These facilitate ways of composing
+editor expressions together with conditions, sequential composition
+and recursion. The means of traversing and modifying an abt are
+provided by the prefixed expression $\pi.E$, which evaluates $\pi$
+before continuing with $E$. The conditional expression $\phi =>
+E_1|E_2$ reduces to $E_1$ if $\phi$ is satisfied and $E_2$
+otherwise. The sequential expression $E_1 \ggg E_2$ evaluates $E_2$
+only once $E_1$ has been reduced to $nil$. The recursive expression
+$rec \ x.E$ binds the recursion variable $x$ in $E$, which can then be
+used to recursively iterate an expression. 
 
 Unlike the editor calculus by \cite{type_safe_structure_editor}, we do not utilize any form of structural congruence on editor expressions to define the semantics of trivial sequential composition or recursion. Instead we simply define these notions with their own transition rule (Seq-Trivial) and (Recursion)
 \federeboks{c}{
@@ -590,27 +613,28 @@ The modal operator $\square o$ is satisfied when $o$ is somewhere in every subtr
 \section{Encoding the generalized editor calculus in an extended lambda calculus} \label{sec:encoding}
 In this section we attempt to soundly encode the generalized editor calculus using the simply typed $\lambda$-calculus (\stlc) as the base calculus. The calculus will be extended with various constructs such as pattern matching, pairs and the recursive \textit{fix} operator. To encode the abstract binding trees, we will only need the simply typed lambda calculus. To encode the contexts, we introduce pairs. To encode atomic prefix commands we further extend the calculus with pattern matching ($\lambda_{->,p}$). Lastly to encode modal logic and editor expressions we extend the calculus with a fixed point operator ($\lambda_{->,p,fix}$). 
 
-%A concrete overview of the calculus and the constructs necessary to encode every central concept of the editor calculus can be seen in \cref{tab:encoding_requirements}.
+A concrete overview of the calculus and the constructs necessary to encode every central concept of the editor calculus can be seen in \cref{tab:encoding_requirements}.
 
-%\begin{table}[H]
-%    \centering
-%    \begin{tabular}{| l | l |}
-%        \hline
-%        Editor calculus & Encoding\\
-%        \hline
-%        \ Abstract Binding Trees & \ Simply typed lambda calculus, \stlc \\
-%        \hline
-%        \ Atomic Prefix Commands & \ \stlc with pattern matching, $\lambda_{->,p}$\\
-%        \hline
-%        \ Modal Logic & \ \stlc with pattern matching and recursion, $\lambda_{->,p,fix}$ \\
-%        \hline
-%        \ Editor Expressions & \ \stlc with pattern matching and recursion, $\lambda_{->,p,fix}$ \\
-%        \hline 
-%    \end{tabular}
-%    \vspace{1mm}
-%    \caption{Calculus requirements to encode the generalized editor calculus}
-%    \label{tab:encoding_requirements}
-%\end{table}
+\begin{table*}
+   \centering
+   \begin{tabular}{| l | l |}
+       \hline
+       \textsf{Editor calculus} & \textsf{Encoding}\\
+       \hline\hline
+       \ Abstract Binding Trees & \ Simply typed lambda calculus, \stlc \\
+       \hline
+       \ Atomic Prefix Commands & \ \stlc with pattern matching, $\lambda_{->,p}$\\
+       \hline
+       \ Modal Logic & \ \stlc with pattern matching and recursion, $\lambda_{->,p,fix}$ \\
+       \hline
+       \ Editor Expressions & \ \stlc with pattern matching and recursion, $\lambda_{->,p,fix}$ \\
+       \hline 
+   \end{tabular}
+   \vspace{1mm}
+   \caption{Editor calculus fragments and the lambda calculus fragments
+     used for encoding them}
+   \label{tab:encoding_requirements}
+\end{table*}
 
 \subsection{Motivation}
 The motivation behind encoding the generalized editor calculus in $\lambda_{->,p,fix}$ (or subsets thereof) is most importantly the type system it provides. If our encoding is sound, then any instance of the editor calculus will have a sound type system, regardless of the abstract syntax. This follows from the fact that the type system of $\lambda_{->,p,fix}$ is sound. Our editor calculus having a sound type system means that it will reject incorrect editor expressions. 
@@ -619,7 +643,9 @@ Secondly a $\lambda_{->,p,fix}$ encoding provides a clear strategy for implement
 
 \subsection{Abstract Binding Trees}
 To encode abstract binding trees we only need to use the simply typed lambda-calculus. We extend the lambda-calculus with term constants $o$ for every $o \in \OP$ excluding cursors, and the base types $s$ for every $s \in \SORT$. 
-Typing rules for operators can be seen on \cref{fig:abt_typing_rules}, where we can infer the type of an operator in the lambda-calculus by its arity. 
+Typing rules for operators can be seen on \cref{fig:abt_typing_rules},
+where we can infer the type of an operator in the lambda-calculus by
+its arity.  
 \federeboks{C}{
     \infeshort{T-Operator}
         {o \in \OP \text{ and has arity } (\Vec{s_1}.s_1, \dots, \Vec{s_n}.s_n)s}
@@ -629,7 +655,10 @@ Typing rules for operators can be seen on \cref{fig:abt_typing_rules}, where we 
     \label{fig:abt_typing_rules}
 }
 
-With the operators added as term constants and sorts added as base types, encoding abts is straightforward as we just have to curry the operator $o$, encode the children $a_1, \dots, a_n$ and add typings. This can be seen on \cref{fig:enc_abt}.
+With the operators added as term constants and sorts added as base
+types, encoding abts is straightforward as we just have to curry the
+operator $o$, encode the children $a_1, \dots, a_n$ and add
+typings. This can be seen on \cref{fig:enc_abt}. 
 
 \federeboks{C}{
     \encode{o(\Vec{x_1}.a_1, \dots , \Vec{x_n}.a_n)} = o \ (\lambda \Vec{x_1} : \Vec{s_1}.\encode{a_1}) \dots (\lambda \Vec{x_n} : \Vec{s_n}.\encode{a_n})
@@ -953,3 +982,8 @@ Further work on our generalized editor calculus could be to prove whether the en
 \endinput
 %%
 %% End of file `sample-sigplan.tex'.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
