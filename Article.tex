@@ -19,12 +19,7 @@
 \acmConference[GPCE 2023]{Make sure to enter the correct
   conference title from your rights confirmation emai}{July 07--07,
   2023}{Woodstock, NY}
-%%
-%%  Uncomment \acmBooktitle if the title of the proceedings is different
-%%  from ``Proceedings of ...''!
-%%
-%%\acmBooktitle{Woodstock '18: ACM Symposium on Neural Gaze Detection,
-%%  June 03--05, 2018, Woodstock, NY}
+
 \acmPrice{15.00}
 \acmISBN{978-1-4503-XXXX-X/18/06}
 
@@ -78,18 +73,7 @@
 %% "authornote" and "authornotemark" commands
 %% used to denote shared contribution to the research.
 
-
-
 %%\orcid{1234-5678-9012}
-
-
-
-
-
-
-
-
-
 
 %\author{Andreas Tor Mortensen}
 %\email{atmo20@student.aau.dk}
@@ -145,33 +129,28 @@ In this paper, we present a generalization of a syntax-directed editor calculus,
 %%
 \begin{CCSXML}
 <ccs2012>
- <concept>
-  <concept_id>10010520.10010553.10010562</concept_id>
-  <concept_desc>Computer systems organization~Embedded systems</concept_desc>
-  <concept_significance>500</concept_significance>
- </concept>
- <concept>
-  <concept_id>10010520.10010575.10010755</concept_id>
-  <concept_desc>Computer systems organization~Redundancy</concept_desc>
-  <concept_significance>300</concept_significance>
- </concept>
- <concept>
-  <concept_id>10010520.10010553.10010554</concept_id>
-  <concept_desc>Computer systems organization~Robotics</concept_desc>
-  <concept_significance>100</concept_significance>
- </concept>
- <concept>
-  <concept_id>10003033.10003083.10003095</concept_id>
-  <concept_desc>Networks~Network reliability</concept_desc>
-  <concept_significance>100</concept_significance>
- </concept>
-</ccs2012>
+   <concept>
+       <concept_id>10011007.10011006.10011050.10011023</concept_id>
+       <concept_desc>Software and its engineering~Specialized application languages</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10003752.10010124.10010131</concept_id>
+       <concept_desc>Theory of computation~Program semantics</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10003752.10010124.10010131.10010134</concept_id>
+       <concept_desc>Theory of computation~Operational semantics</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+ </ccs2012>
 \end{CCSXML}
 
-\ccsdesc[500]{Computer systems organization~Embedded systems}
-\ccsdesc[300]{Computer systems organization~Redundancy}
-\ccsdesc{Computer systems organization~Robotics}
-\ccsdesc[100]{Networks~Network reliability}
+\ccsdesc[500]{Software and its engineering~Specialized application languages}
+\ccsdesc[500]{Theory of computation~Program semantics}
+\ccsdesc[500]{Theory of computation~Operational semantics}
+
 
 %%
 %% Keywords. The author(s) should pick words that accurately describe
@@ -339,71 +318,9 @@ Evaluation of abt's, which \cite{type_safe_structure_editor} introduces through 
 \subsubsection{Cursor contexts}
 In editor expressions, we frequently refer to performing actions on, or with, the abt that is currently encapsulated by the cursor. To support this notion we introduce cursor contexts $C$, inspired by the zipper data structure by \cite{huet_zipper}, as a way to locate the cursor in an abt. Central to this idea is the cursor context $\ctxhole$, or context hole, which specifies the subtree within which the cursor must reside, either as the root, or one of the first children.  For the full definition of cursor contexts, we refer to the full version of the paper, or to \cite{type_safe_structure_editor}, as they have a very similar construct.
 
-%To ensure that the cursor can only reside somewhere within the subtree specified by the context hole, we need to introduce some notion of cursorless abt's, written as $\hat{s}$. Using the abstract syntax, given by $\SORT$, $\OP$ and $\VAR$, we define a new corresponding abstract syntax which can only build abt's without cursors.
-
-%The abstract syntax of cursor contexts are defined according to \cref{def:cursor_contexts}. Using cursor contexts we can interpret any sort of abt $a \in \ABT{}$ as the cursor context $C[a']$, where the abt $a'$ is substituted for the context hole $\ctxhole$. Due to \cref{def:cursor_contexts} this also means that the cursor can only reside within $a'$, since it cannot be anywhere in $C$.
-
-%\begin{definition}[Cursor Contexts]\normalfont
-%    \label{def:cursor_contexts}
- %   The abstract syntax of cursor contexts is defined as an extension of the syntax for cursorless abt's. It is given by
-%    \begin{enumerate}
-%        \item The sorts $\SORT^C = \SORTc \cup \{ C \}$
-%        \item The family of operators $\OP^C = \OPc$ extended with the $\ctxhole$ operator of arity $()C$.
- %       \item Furthermore, for every operator $\hat{o} \in \OPc$ of arity $(\Vec{\hat{s}_1}.\hat{s}_1, \dots, \Vec{\hat{s}_n}.\hat{s}_n)\hat{s}$ and for every $1 \leq i \leq n$ we also add the operator $o^C_i$ of arity $(\Vec{\hat{s}_1}.\hat{s}_1, \dots, \Vec{\hat{s}_i}.C, \dots, \Vec{\hat{s}_n}.\hat{s}_n)C$ to $\OP^C$. These represents that $\ctxhole$ must be somewhere in subtree $i$ of operator $\hat{o}$.
-%        \item The family of variables $\VAR^C = \VARc$
-%    \end{enumerate}
-%\end{definition}
-
-%\begin{example}\label{ex:cursor_contexts}
-%    Continuing from \cref{ex:editor_calculus}, we will now extend the editor calculus for our simple language with cursorless abt's and cursor contexts. 
-    
- %   Firstly, we define the abstract syntax of abt's without cursors, the result of which is shown in \cref{fig:example_cursorless_trees}. For brevity the syntax is presented as formation rules, since translating these into the notion of operators, while trivial, is not a very concise way of presenting the abstract syntax.
- %   \federeboks{R C l}{
-  %      \hat{s} & ::= & let $x = \hat{e}$ in $\hat{s}$ | %$\hat{e}$ | $\hole{s}$ \\
-  %      \hat{e} & ::= & $\hat{e}_1 + \hat{e}_2$ | n | x | $\hole{e}$
- %   }{\caption{Abstract syntax of abt's without cursors}\label{fig:example_cursorless_trees}}
- %   Secondly, using the syntax of cursorless abt's we can define the abstract syntax of cursor contexts according to \cref{def:cursor_contexts}. This is shown in \cref{fig:example_cursor_contexts}.
- %   \federeboks{R C l}{
- %       C & ::= & let $x = C$ in $\hat{s}$ | let $x = \hat{e}$ in $C$ \\
-  %      & | & $C + \hat{e}_2$ | $\hat{e}_1 + C$ | $\ctxhole$
- %   }{\caption{Abstract syntax of cursor contexts}\label{fig:example_cursor_contexts}}
-%\end{example}
 
 Although a cursor context accurately specifies the subtree where the cursor must reside, it does not inherently guarantee the presence of only one cursor within that subtree. Therefore, it becomes necessary to introduce the concept of well-formed abt's. Informally, a well-formed abt is simply an abt containing exactly one cursor. This is guarantied when an abt can be interpreted as $C[\dot{a}]$, meaning the context C, where $\ctxhole$ is substituted with a tree $\dot{a}$, where the cursor-operator is either the root $\dot{a}$, or one of the children of the root.
 
-%\begin{definition}[Well-formed trees]\normalfont
-%    \label{def:well_formed_trees}
-%    Firstly, we define an abstract syntax that describes abt's with exactly one cursor either as the root or as an argument of the root. The syntax is given by
- %   \begin{enumerate}
- %       \item The sorts $\SORTcc = \SORTc \cup \{ \dot{s} \}_{s \in \SORT}$.
- %       \item The family of operators $\OPcc = \OPc$ extended with an operator of arity $(\hat{s})\dot{s}$ for every $\hat{s} \in \SORTc$. These represent that the cursor encapsulates the root of a cursorless abt of sort $\hat{s}$.
-   %     \item Furthermore, for every operator $\hat{o} \in \OPc$ of arity $(\Vec{\hat{s}_1}.\hat{s}_1, \dots, \Vec{\hat{s}_n}.\hat{s}_n)\hat{s}$ and for every $1 \leq i \leq n$ we also add the operator $\dot{o}_i$ of arity $(\Vec{\hat{s}_1}.\hat{s}_1, \dots, \Vec{\hat{s}_i}.\hat{s}_i, \dots, \Vec{\hat{s}_n}.\hat{s}_n)\dot{s}$ to $\OPcc$. These represent that the cursor encapsulates the cursorless subtree $i$ of operator $\hat{o}$.
-%        \item The family of variables $\VARcc = \VARc$.
- %   \end{enumerate}
-%    Given this, a well-formed abt $a \in \ABT{}$ is any abt that can be interpreted as $C[\dot{a}]$, since $C$ cannot contain any cursors and $\dot{a}$ contains exactly one.
-%\end{definition}
-
-% \begin{example}\label{ex:well_formed_trees}
-%    We will now show the extension of \cref{fig:example_abstract_syntax}, where cursors are included, as shown in \cref{fig:example_well_formed_trees}. We note that $\hat{s}$ and $\hat{e}$ are trees without cursors.
-%     \federeboks{R C l}{
-%         \dot{s} & ::= & let $x = [\hat{e}]$ in $\hat{s}$ | let $x = \hat{e}$ in $[\hat{s}]$ | $[\hat{e}]$ | $[\hat{s}]$ \\
-%         \dot{e} & ::= & $[\hat{e}_1] + \hat{e}_2$ | $\hat{e}_1 + [\hat{e}_2]$ | $[\hat{e}]$
-%     }{\caption{Abstract syntax of abt's with exactly one cursor}\label{fig:example_well_formed_trees}}
-%     Given the syntax in \cref{fig:example_well_formed_trees} and the previously introduced cursor context, we can now determine the well-formedness of any abt in our language. For example the statement
-%     \begin{equation*}
-%         \text{let $x=[\hole{e}]$ in $x+5$}
-%     \end{equation*}
-%     is well-formed since it can be written as $C[\dot{e}]$ where
-%     \begin{align*}
-%         C &= \text{let $x=\ctxhole$ in $x+5$} \\
-%         \dot{e}&= [\hole{e}]
-%     \end{align*}
-%     It should be noted that there often are two valid interpretations of a tree $a$ as $C[\dot{a}]$. In this example, the other valid interpretation would be:
-%     \begin{align*}
-%         C' &= \ctxhole \\
-%         \dot{e}' &= \text{let $x=[\hole{e}]$ in $x+5$}
-%     \end{align*}
-% \end{example}
 
 \subsection{Semantics}
 In this section we present the transition systems and the general forms of transition rules defining these systems, based on the generalized syntax of the editor calculus previously presented. 
@@ -429,11 +346,6 @@ only once $E_1$ has been reduced to $nil$. The recursive expression
 $rec \ x.E$ binds the recursion variable $x$ in $E$, which can then be
 used to recursively iterate an expression. 
 
-% Unlike the editor calculus by \cite{type_safe_structure_editor}, we do
-% not utilize any form of structural congruence on editor expressions to
-% define the semantics of trivial sequential composition or
-% recursion. Instead we simply define these notions with their own
-% transition rule (Seq-Trivial) and (Recursion) 
 \federeboks{c}{
     \infeshort{Cond-1}
             {a |= \phi}
@@ -462,9 +374,20 @@ used to recursively iterate an expression.
 .
 
 \subsubsection{Substitution and cursor movement}
-The labelled transition system for substitutions and cursor movement is defined as $(\ABT{}, Apc, \Rightarrow)$. This system describes the semantics of modifying the well-formed abt $a$ encapsulated by the cursor, by either substituting it with an operator or moving the cursor up or down the tree. Transitions are therefore of the form $a \ltrans{\pi} a'$, where $a, a' \in \ABT{}$ and $\pi \in Apc$.
 
-For substitution we define the transition rule for every label $\{o\} \in Apc$, which substitutes the abt currently encapuslated by the cursor with $o$. The general case of this rule is shown in \cref{fig:substitution_rules}. The side-condition ensures that we can only substitute operators of sort $s$ with abt's of sort $s$.
+The labelled transition system for substitutions and cursor movement
+is defined as $(\ABT{}, Apc, \Rightarrow)$. This system describes the
+semantics of modifying the well-formed abt $a$ encapsulated by the
+cursor, by either substituting it with an operator or moving the
+cursor up or down the tree. Transitions are therefore of the form $a
+\ltrans{\pi} a'$, where $a, a' \in \ABT{}$ and $\pi \in Apc$. 
+
+For substitution we define the transition rule for every label $\{o\}
+\in Apc$, which substitutes the abt currently encapuslated by the
+cursor with $o$. The general case of this rule is shown in
+\cref{fig:substitution_rules}. The side-condition ensures that we can
+only substitute operators of sort $s$ with abt's of sort $s$.
+
 \federeboks{c}{
     \infeshort{Ins}
         {}
@@ -474,7 +397,13 @@ For substitution we define the transition rule for every label $\{o\} \in Apc$, 
         \end{array}$
 }{\caption{General form of reduction rule for substitution}\label{fig:substitution_rules}}
 
-For cursor movement we define two transition rules "child  $i$" and "parent" for every operator $o$ of arity $(\Vec{s_1}.s_1, \dots,$ $ \Vec{s_n}.s_n)s$ and for every $1 \leq i \leq n$. These rules, shown in \cref{fig:cursor_movement_rules}, facilitate cursor movement from the parent operator to child $i$ and from child $i$ back to the parent operator, respectively.
+For cursor movement we define two transition rules "child  $i$" and
+"parent" for every operator $o$ of arity $(\Vec{s_1}.s_1, \dots,$ $
+\Vec{s_n}.s_n)s$ and for every $1 \leq i \leq n$. These rules, shown
+in \cref{fig:cursor_movement_rules}, facilitate cursor movement from
+the parent operator to child $i$ and from child $i$ back to the parent
+operator, respectively.
+
 \federeboks{c}{
     \infeshort{Child-i}
         {}
@@ -488,7 +417,7 @@ For cursor movement we define two transition rules "child  $i$" and "parent" for
 }{\caption{General form of reduction rules for cursor movement}\label{fig:cursor_movement_rules}}
 
 \begin{example}\label{ex:substitution_rules}
-    Continuing from \cref{ex:well_formed_trees}, we now define the semantics of the editor calculus for our simple language. We do not show the transition rules for editor expressions, since these are equivalent to the ones presented in \cref{fig:editor_expression_rules}. 
+    We now define the semantics of the editor calculus for our simple language. We do not show the transition rules for editor expressions, since these are equivalent to the ones presented in \cref{fig:editor_expression_rules}. 
 
     The transition system for cursor movement and substitution is defined with respect to the operators $o$ in our language. Based on the general form of substitution rules shown in \cref{fig:substitution_rules}, we define a specialized rule for substituting the tree encapsulated by the cursor for every operator $o$. A selection of these are shown in \cref{fig:example_substitution_rules}.
     \federeboks{c}{
@@ -587,43 +516,72 @@ The general form of the satisfaction rules for the modalities $@o$, $\Diamond o$
         {[\hat{a}] |= @o}
         {[\hat{a}] |= \Diamond o}
 }{\caption{Satisfaction relation for modal operators}\label{fig:satisfaction_relation_modal}}
-The modal operator $@o$ is satisfied when the root of the abt encapsulated by the cursor is the operator $o$. Therefore we define the rule (At-op) for every operator $o$.
+The modality $@o$ holds for an abt $a$ if the cursor is at the root of
+$a$ and the root is the operator $o$. 
 
-The modal operator $\Diamond o$ is satisfied when the operator $o$ is anywhere within the abt encapsulated by the cursor. For the trivial case, when the root of the tree encapsulated by the cursor is $o$, we only define the one rule (Possibly-trivial). For the non-trivial case, where $o$ is in one of the subtrees $\hat{a}_i$, we define a rule (Possibly-i) for every argument of every operator $o$.
+The modality $\Diamond o$ is satisfied for $a$ when the operator $o$ is
+anywhere within $a$. The modality
+$\square o$ holds for $a$ when $o$ is found in every subtree of the
+abt encapsulated by the cursor. 
 
-The modal operator $\square o$ is satisfied when $o$ is somewhere in every subtree of the abt encapsulated by the cursor. To describe this, we define the rule (Necessity) for every operator $o$.
+% \begin{example}\label{ex:modal_logic}
+%     We finalize our specialized editor calculus from \cref{ex:substitution_rules}, by defining the satisfaction relation. The propositional connectives are defined as previously shown in \cref{fig:satisfaction_relation_connectives}. In \cref{fig:example_satisfaction_relation} we have shown the satisfaction rules for all modalities for the $plus$ operator. Rules for the remaining operators $o$ are defined accordingly.
+%     \federeboks{c}{
+%         \infeshort{At-plus}
+%             {}
+%             {[\text{plus}(\hat{a}_1;\hat{a}_2)]|= @\text{plus} }  
+%         \\\\
+%         \infeshort{Pos1-plus}
+%             {[\hat{a}_1] |= \Diamond o}
+%             {[\text{plus}(\hat{a}_1; \hat{a}_2)] |= \Diamond o}
+%         \\\\
+%         \infeshort{Nec-plus}
+%             {[\hat{a}_1] |= \Diamond o \quad [\hat{a}_2] |= \Diamond o}
+%             {[\text{plus}(\hat{a}_1;\hat{a}_2)] |=\square o}
+%         \\\\
+%         \infeshort{Pos2-plus}
+%             {[\hat{a}_2] |= \Diamond o}
+%             {[\text{plus}(\hat{a}_1; \hat{a}_2)] |= \Diamond o}
+%     }{\caption{Satisfaction relation for modal operators on $plus$}\label{fig:example_satisfaction_relation}}
+% \end{example}
 
-\begin{example}\label{ex:modal_logic}
-    We finalize our specialized editor calculus from \cref{ex:substitution_rules}, by defining the satisfaction relation. The propositional connectives are defined as previously shown in \cref{fig:satisfaction_relation_connectives}. In \cref{fig:example_satisfaction_relation} we have shown the satisfaction rules for all modalities for the $plus$ operator. Rules for the remaining operators $o$ are defined accordingly.
-    \federeboks{c}{
-        \infeshort{At-plus}
-            {}
-            {[\text{plus}(\hat{a}_1;\hat{a}_2)]|= @\text{plus} }  
-        \\\\
-        \infeshort{Pos1-plus}
-            {[\hat{a}_1] |= \Diamond o}
-            {[\text{plus}(\hat{a}_1; \hat{a}_2)] |= \Diamond o}
-        \\\\
-        \infeshort{Nec-plus}
-            {[\hat{a}_1] |= \Diamond o \quad [\hat{a}_2] |= \Diamond o}
-            {[\text{plus}(\hat{a}_1;\hat{a}_2)] |=\square o}
-        \\\\
-        \infeshort{Pos2-plus}
-            {[\hat{a}_2] |= \Diamond o}
-            {[\text{plus}(\hat{a}_1; \hat{a}_2)] |= \Diamond o}
-    }{\caption{Satisfaction relation for modal operators on $plus$}\label{fig:example_satisfaction_relation}}
-\end{example}
+\subsection{Guarantees from the original editor calculus}
+
+The original editor calculus of \cite{type_safe_structure_editor} is equipped
+with a type system that types configurations relative to a path in the
+ast of the configuration. Judgments are therefore of the form $p, \Gamma_e \vdash
+\lr{E,a} : \textsf{ok}$, where $p$ is a path in the ast $a$ and
+$\Gamma_e$ is a type environment.
+
+The type system of the original calculus guarantees that a well-typed
+configuration remains well-typed after a transition and that a
+well-typed configuration will not get stuck. Here,
+$(p,\Gamma_e)\downarrow_\alpha$ denotes that the path and the type
+environment are updated because of the action $\alpha$. These
+guarantees can be expressed as the following theorem.
+
+\begin{theorem}[\cite{type_safe_structure_editor}]\label{thm:typesafe}
+  If $p, \Gamma_e \vdash \lr{E,a} : \textsf{ok}$ then
+  \begin{enumerate}
+  \item if $\lr{E,a} \ltrans{\alpha} \lr{E',a'}$, then
+    $(p,\Gamma_e)\downarrow_\alpha \vdash \lr{E',a'} : \textsf{ok}$
+  
+  \item $p, \Gamma_e \vdash \lr{E,a} \neg\to \textsf{wrong}$
+  \end{enumerate}
+\end{theorem}
 
 \section{Encoding the generalized editor calculus} \label{sec:encoding}
 
+
+\subsection{A collection of lambda calculi}
+
 To encode the abstract binding trees, the simply typed lambda calculus
-suffices.
+suffices, so for an $a \in \ABT{}$ we have $\encode{a} \in \stlc$.
 
-In order to encode the generalized editor calculus using the simply
-typed $\lambda$-calculus (\stlc) as the base calculus, we extend the
-latter with new constructs.
+In order to encode abts with cursors and expressions of the
+generalized editor calculus, we extend \stlc with more constructs.
 
-To encode the contexts, we introduce pairs. To encode atomic prefix
+To represent contexts, we introduce pairs. To encode atomic prefix
 commands we further extend the calculus with pattern matching
 ($\lambda_{->,p}$). Finally, to encode modal logic and editor
 expressions recursion is needed in the form of the fixed point
@@ -638,9 +596,9 @@ each part of it can be seen in \cref{tab:encoding_requirements}.
        \hline
        \textsf{Editor calculus} & \textsf{Encoding}\\
        \hline\hline
-       \ Abstract Binding Trees & \ Simply typed lambda calculus, \stlc \\
+       \ Abstract Binding Trees & \ Simply typed lambda calculus with pairs, \stlc \\
        \hline
-       \ Atomic Prefix Commands & \ \stlc with pattern matching, $\lambda_{->,p}$\\
+       \ Atomic Prefix Commands & \ \stlc with pattern matching $\lambda_{->,p}$\\
        \hline
        \ Modal Logic & \ \stlc with pattern matching and recursion, $\lambda_{->,p,fix}$ \\
        \hline
@@ -653,12 +611,22 @@ each part of it can be seen in \cref{tab:encoding_requirements}.
    \label{tab:encoding_requirements}
  \end{table*}
 
- All of the lambda calculi that we consider in the following have a
+ All of the lambda calculi that we consider have a
  standard reduction semantics with reductions of the form $e \to
- e'$. Moreover, every calculus has a type systems with type judgements
- of the form $\Gamma \vdash e : \tau$, where $\tau$ ranges over a set
- of types \Types\ and $\Gamma$ is a type environment
- $\Gamma : \Var \pra \Types$. The type systems all satisfy the subject
+ e'$.
+
+ Moreover, every calculus has a type systems with type judgements of
+ the form $\Gamma \vdash e : \tau$, where $\tau$ ranges over a set of
+ types \Types\ given by
+%
+\[  \tau ::= \tau_s \mid \tau \to \tau \mid \tau \times \tau  \]
+%
+where $\tau_s$ is a type for each sort $s \in \mathcal{S}$ and $\tau
+\to \tau$ and $\tau \times \tau$ are function and product types,
+respectively, and $\Gamma$ is a type environment
+ $\Gamma : \Var \pra \Types$. 
+
+ The type systems all satisfy the subject
  reduction property.
 
  \begin{theorem}[Subject reduction]\label{thm:subred}
@@ -668,10 +636,14 @@ each part of it can be seen in \cref{tab:encoding_requirements}.
 
  It is this result that ensures that our encoding will indeed provide
  a general result about type soundness for the generalized editor
- calculus. 
+ calculus.
  
 \subsection{Abstract binding trees}
-To encode abstract binding trees we only need to use the simply typed lambda-calculus. We extend the lambda-calculus with term constants $o$ for every $o \in \OP$ excluding cursors, and the base types $s$ for every $s \in \SORT$. 
+
+To encode abstract binding trees we only need to use the simply typed
+lambda-calculus where we have term constants $o$ for every $o \in \OP$
+excluding cursors, and the base types $s$ for every $s \in \SORT$.
+
 Typing rules for operators can be seen on \cref{fig:abt_typing_rules},
 where we can infer the type of an operator in the lambda-calculus by
 its arity.  
@@ -697,7 +669,10 @@ typings. This can be seen on \cref{fig:enc_abt}.
 }
 
 \begin{example}\label{ex:enc_abt_example}
-    Continuing from \cref{ex:modal_logic} we will now encode the operators in our small language. Following our singular rule for encoding abt's we get the resulting encoding seen on \cref{fig:enc_abt_example}, and the type for each operator on \cref{fig:abt_example_type}.
+    We can now encode the operators in our small language. Following
+    our singular rule for encoding abt's we get the resulting encoding
+    seen on \cref{fig:enc_abt_example}, and the type for each operator
+    on \cref{fig:abt_example_type}. 
     
     \federeboks{C C}{
         \encode{\text{plus}(a_1; a_2)} = \text{plus} \encode{a_1} \encode{a_2} 
@@ -905,22 +880,20 @@ of $E_1$ or $E_2$ on $C$ accordingly.
 
 \federeboks{C C}{
     \encode{\pi.E} = \lambda C:\text{Ctx}.\encode{E} ( (\encode{\pi} \ C.1) \ , C.2) 
-    \\\\
+    \\[2mm]
     \encode{E_1 \ggg E_2}  = \lambda C:\text{Ctx}. \encode{E_2} (\encode{E_1} C)
-    \\\\
+    \\[2mm]
     \encode{\text{rec } x.E} = \text{fix } ( \lambda x: (\text{Ctx} \to \text{Ctx}).\encode{E}) 
-    \\\\
+    \\[2mm]
     \encode{\phi => E_1 | E_2} = \lambda C:\text{Ctx}.\text{match} \ (\encode{\phi} \ C.1) \\
         | \ \top ->  \encode{E_1} \ C 
-    \\
+    \\[2mm]
     | \  \bot ->  \encode{E_2} \ C 
-    \\\\
-    \encode{\lr{E, C[a']}} = \encode{E} \  (\encode{a'}, \encode{C})
-        \\\\
+    \\[2mm]
     \encode{\text{nil}} = \lambda C:\text{Ctx}.C \quad \quad    \encode{x} = x
 
 }{
-    \caption{Encoding of editor expressions and context configuration.}
+    \caption{Encoding editor expressions}
     \label{fig:edt_enc}
 }
 
@@ -1029,7 +1002,16 @@ $\square o$ consists of either applying $\Diamond o$ on all the children of the 
 %     As can be seen, the editor expression could be fully encoded to the extended lambda calculus. We refer to the full paper for
 % \end{example}
 
-\subsection{Soundness of the encoding}
+\subsection{Encoding configurations}
+
+It is now straightforward to encode configurations as follows.
+%
+\[ \encode{\lr{E, C[a]}} = \encode{E} \  (\encode{a}, \encode{C}) \]
+%
+Note that here $\encode{E} : T \times T_C \to T$ where $T$ is the type
+of the encoding of an abt and $T_C$ is the type of the encoding of a context.
+
+\section{Soundness of the encoding}
 
 The main result about our encoding is that it is sound wrt. the
 operational semantics of the original calculus.
@@ -1042,24 +1024,32 @@ operational semantics of the original calculus.
   \[ \encode{E}\encode{a} \rightarrow^{\ast}  \encode{E'}\encode{a'}  \]
 \end{theorem}
 
+Because of Theorem \ref{thm:subred}, we now get that our encoding is
+type-safe.
+
+\begin{corollary}
+  If $\Gamma \vdash \encode{\lr{E,C[a]}} : t$ then, if $\lr{E,a}
+  \ltrans{} \lr{E',a'}$, we also have $\Gamma \vdash \encode{\lr{E',C[a']}} : t$.
+\end{corollary}
+
 \section{Conclusion and Further Work}
 
 We have developed a generalized editor calculus that enables the
 creation of a syntax-directed editor calculus for a specific abstract
-syntax. Subsequently, we encoded this editor calculus into an extended
-version of the lambda calculus, which incorporates pairs, recursion
-and pattern matching.  Further work on our generalized editor calculus
-could be to prove whether the encoding is complete. Otherwise, one
-could implement a redo-undo construct such as introduced in
-\cite{undo_Edit} in the generalized editor calculus. Another
-interesting construct to implement would be a copy-paste operation.
+syntax, and describe how to encode it into a monomorphic typed lambda
+calculus with pairs, recursion and pattern matching. The encoding is
+sound, and as a consequence, given that the type system of the
+extended lambda calculus is sound, it follows that our editor calculus
+is typesafe.
 
-%Furthermore, we have proven the soundness of the encoding of the generalized editor calculus into the extended lambda calculus. As a consequence, given that the type system of the extended lambda calculus is sound, it logically follows that our editor calculus also possesses a sound type system.
-
-We have identified several possibilities for expanding our work on the
-generalized editor calculus. First of all, the encoding should be
-proved complete. Secondly, 
-
+Further work on our generalized editor calculus is to prove whether
+the encoding is complete.  An important next step is to incorporate a
+copy-paste operation. Here, the question arises as to how to best deal
+with pasting terms that include free variables. In some settings, when
+editing code, this will introduce name clashes, but in other settings
+the free variables should intentionally be captured. A likely solution
+is therefore to have two different paste operations corresponding to
+each of these situations.
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{bibliography}
@@ -1067,8 +1057,6 @@ proved complete. Secondly,
 
 \end{document}
 \endinput
-%%
-%% End of file `sample-sigplan.tex'.
 
 %%% Local Variables:
 %%% mode: latex
